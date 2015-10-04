@@ -12,7 +12,7 @@ Minimum Requirements
 Components
 ----------
 
- Each component has a [github](https://github.com/surikat?tab=repositories) repository with it's own documentation, light autoloader, [composer](https://getcomposer.org) support and [packagist package](https://packagist.org/users/surikat/packages/). All components follows the [PSR-4 convention](http://www.php-fig.org/psr/psr-4/) for namespace related to directory structure and so, can be loaded using any modern framework [autoloader](Documentation/Autoload).
+ Each component has a [github](https://github.com/surikat?tab=repositories) repository with it's own documentation, light autoloader, [composer](https://getcomposer.org) support and [packagist package](https://packagist.org/users/surikat/packages/). All components follows the [PSR-4 convention](http://www.php-fig.org/psr/psr-4/) for namespace related to directory structure and so, can be loaded using any modern framework [autoloader](http://wildsurikat.com/Documentation/Autoload).
 
 Work Flow
 ---------
@@ -41,5 +41,5 @@ modular plugins
 PHP bootstrap
 ==============================
 
- All php surikat components are distributed under the ["Wild" namespace](https://github.com/surikat/Wild). They are forming a complete php suite where all components are decoupled and the use cases and couplings can be found in subnamespace ["Wild\\Plugin"](Documentation/Plugin) .
- An example of bootstrap is files "index.phps" and "surikat.php" in [Surikat-Framework](https://github.com/surikat/surikat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Kinetic\\Di"](Documentation/Kinetic).
+ All php surikat components are distributed under the ["Wild" namespace](https://github.com/surikat/Wild). They are forming a complete php suite where all components are decoupled and the use cases and couplings can be found in subnamespace ["Wild\\Plugin"](http://wildsurikat.com/Documentation/Plugin) .
+ An example of bootstrap is files "index.phps" and "surikat.php" in [Surikat-Framework](https://github.com/surikat/surikat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Kinetic\\Di"](http://wildsurikat.com/Documentation/Kinetic).
