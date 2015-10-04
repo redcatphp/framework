@@ -35,7 +35,7 @@ Is where you'll can find implementation of FrontOffice and Backoffice for basic 
 modular plugins
 ---------------
 
- For modular plugins see [Mvc module](http://wildsurikat.dev/Documentation/Mvc#module).
+ For modular plugins see [Mvc module](http://wildsurikat.com/Documentation/Mvc#module).
 
 
 PHP bootstrap
