@@ -42,4 +42,4 @@ PHP bootstrap
 ==============================
 
  All php surikat components are distributed under the ["Wild" namespace](https://github.com/surikat/Wild). They are forming a complete php suite where all components are decoupled and the use cases and couplings can be found in subnamespace ["Wild\\Plugin"](http://wildsurikat.com/plugins) .
- An example of bootstrap is files "index.phps" and "surikat.php" in [Surikat-Framework](https://github.com/surikat/surikat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Kinetic\\Di"](http://wildsurikat.com/kinetic-dependency-injection).
+ An example of bootstrap is files "index.phps" and "surikat.php" in [Surikat-Framework](https://github.com/surikat/surikat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Wire\\Di"](http://wildsurikat.com/wire-dependency-injection).
