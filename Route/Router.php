@@ -6,10 +6,10 @@
  * @version 1.2
  * @link http://github.com/surikat/Router/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
-namespace Wild\Route;
-use Wild\Wire\Di;
+namespace RedCat\Route;
+use RedCat\Wire\Di;
 class Router implements \ArrayAccess{
 	private $routes = [];
 	private $route;
@@ -68,10 +68,10 @@ class Router implements \ArrayAccess{
 	private function matchType($match){
 		if(is_string($match)){
 			if(strpos($match,'/^')===0&&strrpos($match,'$/')-strlen($match)===-2){
-				return ['new:Wild\Route\Match\Regex',$match];
+				return ['new:RedCat\Route\Match\Regex',$match];
 			}
 			else{
-				return ['new:Wild\Route\Match\Prefix',$match];
+				return ['new:RedCat\Route\Match\Prefix',$match];
 			}
 		}
 		return $match;

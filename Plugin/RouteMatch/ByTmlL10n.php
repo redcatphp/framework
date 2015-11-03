@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Plugin\RouteMatch;
+namespace RedCat\Plugin\RouteMatch;
 class ByTmlL10n extends ByTml {
 	private $langDefault;
 	private $lang;

@@ -1,4 +1,4 @@
-<?php namespace Wild\Plugin\Templix;
+<?php namespace RedCat\Plugin\Templix;
 class LoremIpsum {
 	/**
 	*	Copyright (c) 2009, Mathew Tinsley (tinsley@tinsology.net)

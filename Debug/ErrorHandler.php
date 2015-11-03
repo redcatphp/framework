@@ -6,10 +6,10 @@
  * @version 1.2
  * @link http://github.com/surikat/Debug/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
 
-namespace Wild\Debug;
+namespace RedCat\Debug;
 class ErrorHandler{
 	private static $errorType;
 	private $handle;

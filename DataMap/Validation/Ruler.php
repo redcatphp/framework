@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\Validation;
+namespace RedCat\DataMap\Validation;
 class Ruler {
 	// static function __callStatic($func,array $args=array()){return true;} //court-circuit
 	static function unique($v,$db){

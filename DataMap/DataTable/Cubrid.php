@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\DataTable;
+namespace RedCat\DataMap\DataTable;
 class Cubrid extends SQL{
 	
 }

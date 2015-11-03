@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap\DataTable;
-use Wild\DataMap\Exception;
+namespace RedCat\DataMap\DataTable;
+use RedCat\DataMap\Exception;
 class Sqlite extends SQL{
 	protected $fullTextSearchLocale;
 	function setFullTextSearchLocale($locale){

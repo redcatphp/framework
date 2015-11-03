@@ -1,3 +1,3 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Exception extends \Exception {}

@@ -9,7 +9,7 @@
 		{
 			"name": "Jo Surikat",
 			"email": "jo@surikat.pro",
-			"homepage": "http://wildsurikat.com/localize",
+			"homepage": "http://redcatphp.com/localize",
 			"role": "Developer"
 		}
 	],
@@ -18,7 +18,7 @@
 	},
 	"autoload": {
 		"psr-4":{
-			"Wild\\Localize\\": ""
+			"RedCat\\Localize\\": ""
 		}
 	},
 	"minimum-stability": "dev",

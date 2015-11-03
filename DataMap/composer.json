@@ -9,7 +9,7 @@
 		{
 			"name": "Jo Surikat",
 			"email": "jo@surikat.pro",
-			"homepage": "http://wildsurikat.com/datamap-orm",
+			"homepage": "http://redcatphp.com/datamap-orm",
 			"role": "Developer"
 		}
 	],
@@ -18,7 +18,7 @@
 	},
 	"autoload": {
 		"psr-4":{
-			"Wild\\DataMap\\": ""
+			"RedCat\\DataMap\\": ""
 		}
 	},
 	"minimum-stability": "dev",

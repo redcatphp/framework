@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Replace extends Base {
 	protected $select;
 	function __construct($table = null) {

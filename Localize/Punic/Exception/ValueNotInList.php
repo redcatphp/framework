@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when a function meets an argument of an unsupported type
  */
-class ValueNotInList extends \Wild\Localize\Punic\Exception
+class ValueNotInList extends \RedCat\Localize\Punic\Exception
 {
     protected $value;
 
@@ -20,7 +20,7 @@ class ValueNotInList extends \Wild\Localize\Punic\Exception
         $this->value = $value;
         $this->allowedValues = $allowedValues;
         $message = "'$value' is not valid. Acceptable values are: '" . implode("', '", $allowedValues) . "'";
-        parent::__construct($message, \Wild\Localize\Punic\Exception::VALUE_NOT_IN_LIST, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::VALUE_NOT_IN_LIST, $previous);
     }
 
     /**

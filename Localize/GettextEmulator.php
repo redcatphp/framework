@@ -1,8 +1,8 @@
 <?php
-namespace Wild\Localize;
-use Wild\Localize\FileReader;
-use Wild\Localize\domain;
-use Wild\Localize\gettext_reader;
+namespace RedCat\Localize;
+use RedCat\Localize\FileReader;
+use RedCat\Localize\domain;
+use RedCat\Localize\gettext_reader;
 if (!defined('LC_MESSAGES'))
 	define('LC_MESSAGES',5);
 class GettextEmulator{

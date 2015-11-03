@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap;
+namespace RedCat\DataMap;
 interface Observer{
 	function beforeRecursive();
 	function beforePut();

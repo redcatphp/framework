@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Localize;
+namespace RedCat\Localize;
 /*
  * Translator - gettext wrapper
  *
@@ -7,7 +7,7 @@ namespace Wild\Localize;
  * @version 1.3
  * @link http://github.com/surikat/Localize/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
 class Translator {
 	protected static $systemLocales;
@@ -41,8 +41,8 @@ class Translator {
 	}
 	static function getInstance(){
 		if(!isset(self::$instance)){
-			if(class_exists('Wild\Wire\Di'))
-				self::$instance = \Wild\Wire\Di::getInstance()->create(__CLASS__);
+			if(class_exists('RedCat\Wire\Di'))
+				self::$instance = \RedCat\Wire\Di::getInstance()->create(__CLASS__);
 			else
 				self::$instance = new self;
 		}

@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an data file contains malformed data
  */
-class BadDataFileContents extends \Wild\Localize\Punic\Exception
+class BadDataFileContents extends \RedCat\Localize\Punic\Exception
 {
     protected $dataFilePath;
 
@@ -21,7 +21,7 @@ class BadDataFileContents extends \Wild\Localize\Punic\Exception
         $this->dataFilePath = $dataFilePath;
         $this->dataFileContents = $dataFileContents;
         $message = "The file '$dataFilePath' contains malformed data";
-        parent::__construct($message, \Wild\Localize\Punic\Exception::BAD_DATA_FILE_CONTENTS, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::BAD_DATA_FILE_CONTENTS, $previous);
     }
 
     /**

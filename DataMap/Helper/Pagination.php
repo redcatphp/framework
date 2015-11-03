@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\Helper;
+namespace RedCat\DataMap\Helper;
 class Pagination{
 	var $start;
 	var $end;

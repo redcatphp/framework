@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Insert extends Base {
 	protected $ignore = false;
 	protected $select;

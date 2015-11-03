@@ -1,13 +1,13 @@
 <?php
-namespace Wild\DataMap;
+namespace RedCat\DataMap;
 class B{
 	protected static $bases;
 	protected static $currentDataSource;
 	static $useWireDi = true;
 	static function _init(){
 		if(!isset(self::$bases)){
-			if(class_exists('Wild\Wire\Di')&&self::$useWireDi){
-				self::$bases = \Wild\Wire\Di::getInstance()->create('Wild\DataMap\Bases');
+			if(class_exists('RedCat\Wire\Di')&&self::$useWireDi){
+				self::$bases = \RedCat\Wire\Di::getInstance()->create('RedCat\DataMap\Bases');
 				if(isset(self::$bases[0]))
 					self::selectDatabase(0);
 			}

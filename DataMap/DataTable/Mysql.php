@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\DataTable;
+namespace RedCat\DataMap\DataTable;
 class Mysql extends SQL{
 	function fullTextSearch($text,$mode='',$columns=[]){
 		if($mode){

@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Select extends Where {
 	protected $distinct = false;
 	protected $group_by = [];

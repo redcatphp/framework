@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Update extends Where {
 	protected $set = [];
 	protected $order_by = [];

@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\DataSource;
+namespace RedCat\DataMap\DataSource;
 class Pgsql extends SQL{
 	const C_DATATYPE_INTEGER          = 0;
 	const C_DATATYPE_BIGINT           = 1;

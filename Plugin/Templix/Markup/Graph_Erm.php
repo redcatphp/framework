@@ -1,6 +1,6 @@
 <?php
-namespace Wild\Plugin\Templix\Markup; 
-class Graph_Erm extends \Wild\Templix\Markup{
+namespace RedCat\Plugin\Templix\Markup; 
+class Graph_Erm extends \RedCat\Templix\Markup{
 	function load(){
 		foreach($this->children('table') as $t){
 			$t->remapAttr('name');

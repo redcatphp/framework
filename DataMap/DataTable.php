@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap;
-use Wild\DataMap\Helper\Pagination;
+namespace RedCat\DataMap;
+use RedCat\DataMap\Helper\Pagination;
 abstract class DataTable implements \ArrayAccess,\Iterator,\Countable{
 	private static $defaultEvents = [
 		'beforeRecursive',

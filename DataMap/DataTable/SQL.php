@@ -1,8 +1,8 @@
 <?php
-namespace Wild\DataMap\DataTable;
-use Wild\DataMap\Exception;
-use Wild\DataMap\DataTable;
-use Wild\DataMap\SqlComposer\Select;
+namespace RedCat\DataMap\DataTable;
+use RedCat\DataMap\Exception;
+use RedCat\DataMap\DataTable;
+use RedCat\DataMap\SqlComposer\Select;
 class SQL extends DataTable{
 	private $stmt;
 	private $row;

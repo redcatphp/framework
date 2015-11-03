@@ -1,7 +1,7 @@
 <?php
-namespace Wild\Plugin\Templix\Markup;
-use Wild\Plugin\Templix\Parsedown;
-class Markdown extends \Wild\Templix\Markup {
+namespace RedCat\Plugin\Templix\Markup;
+use RedCat\Plugin\Templix\Parsedown;
+class Markdown extends \RedCat\Templix\Markup {
 	protected $hiddenWrap = true;
 	protected $noParseContent = true;
 	function load(){

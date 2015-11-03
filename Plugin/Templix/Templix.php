@@ -1,7 +1,7 @@
 <?php
-namespace Wild\Plugin\Templix;
-use Wild\Wire\Di;
-class Templix extends \Wild\Templix\Templix{
+namespace RedCat\Plugin\Templix;
+use RedCat\Wire\Di;
+class Templix extends \RedCat\Templix\Templix{
 	private $di;
 	
 	public $httpMtime;
@@ -110,9 +110,9 @@ class Templix extends \Wild\Templix\Templix{
 	function __invoke($file){
 		if(is_array($file)){
 			list($hook,$file) = (array)$file;
-			if(substr($hook,0,8)=='surikat/')
+			if(substr($hook,0,8)=='redcat/')
 				$hook = substr($hook,8);
-			$this->setDirCwd([$hook.'/','surikat/'.$hook.'/']);
+			$this->setDirCwd([$hook.'/','redcat/'.$hook.'/']);
 		}
 		return $this->query($file);
 	}

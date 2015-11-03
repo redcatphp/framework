@@ -1,7 +1,7 @@
 <?php
-namespace Wild\DataMap\DataSource;
-use Wild\DataMap\DataSource;
-use Wild\DataMap\Wild\DataMap;
+namespace RedCat\DataMap\DataSource;
+use RedCat\DataMap\DataSource;
+use RedCat\DataMap\RedCat\DataMap;
 class Filesystem extends DataSource{
 	private $directory;
 	function construct(array $config=[]){

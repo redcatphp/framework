@@ -1,7 +1,7 @@
 <?php
-namespace Wild\Plugin\Templix\Markup;
-use Wild\Plugin\Templix\LoremIpsum as LoremIpsumGen;
-class Loremipsum extends \Wild\Templix\Markup {
+namespace RedCat\Plugin\Templix\Markup;
+use RedCat\Plugin\Templix\LoremIpsum as LoremIpsumGen;
+class Loremipsum extends \RedCat\Templix\Markup {
 	protected $selfClosed = true;
 	protected $hiddenWrap = true;
 	function load(){
@@ -23,7 +23,7 @@ class Loremipsum extends \Wild\Templix\Markup {
 			$loremipsum = $loremipsum?'true':'false';
 			$html = $html?'false':'true';
 			$mini = $mini?'true':'false';
-			$this->innerHead[] = "<?php echo \Wild\Plugin\Templix\LoremIpsum::get($count,$wordsPerParagraph,$format,$loremipsum,$html,$mini);?>";
+			$this->innerHead[] = "<?php echo \RedCat\Plugin\Templix\LoremIpsum::get($count,$wordsPerParagraph,$format,$loremipsum,$html,$mini);?>";
 		}
 		else{
 			$this->innerHead[] = LoremIpsumGen::get($count,$wordsPerParagraph,$format,$loremipsum,$html,$mini);

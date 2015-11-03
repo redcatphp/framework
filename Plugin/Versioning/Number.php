@@ -1,13 +1,13 @@
 <?php
-namespace Wild\Plugin\Versioning;
+namespace RedCat\Plugin\Versioning;
 class Number{
 	private $hashLength;
 	private $cwd;
 	private $hash;
 	function __construct($cwd=null,$hashLength=9){
 		if(!isset($cwd)){
-			if(defined('SURIKAT_CWD'))
-				$cwd = SURIKAT_CWD;
+			if(defined('REDCAT_CWD'))
+				$cwd = REDCAT_CWD;
 			else
 				$cwd = getcwd();
 		}

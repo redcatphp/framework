@@ -1,11 +1,11 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an data file has been hit
  */
 
-class InvalidDataFile extends \Wild\Localize\Punic\Exception
+class InvalidDataFile extends \RedCat\Localize\Punic\Exception
 {
     protected $identifier;
 
@@ -23,7 +23,7 @@ class InvalidDataFile extends \Wild\Localize\Punic\Exception
         } else {
             $message = "A valid identifier should be a string, $type received";
         }
-        parent::__construct($message, \Wild\Localize\Punic\Exception::INVALID_DATAFILE, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::INVALID_DATAFILE, $previous);
     }
 
     /**

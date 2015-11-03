@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 abstract class Where extends Base {
 	protected $where = [];
 	protected $with = [];

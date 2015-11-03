@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when a function meets an argument of an unsupported type
  */
-class BadArgumentType extends \Wild\Localize\Punic\Exception
+class BadArgumentType extends \RedCat\Localize\Punic\Exception
 {
     protected $argumentValue;
 
@@ -39,7 +39,7 @@ class BadArgumentType extends \Wild\Localize\Punic\Exception
                 break;
         }
         $message = "Can't convert $shownName to a $destinationTypeDescription";
-        parent::__construct($message, \Wild\Localize\Punic\Exception::BAD_ARGUMENT_TYPE, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::BAD_ARGUMENT_TYPE, $previous);
     }
 
     /**

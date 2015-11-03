@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Localize\Punic;
+namespace RedCat\Localize\Punic;
 
 /**
  * Plural helper stuff
@@ -9,12 +9,12 @@ class Plural
 
     /**
      * Return the list of applicable plural rule for a locale
-     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \Wild\Localize\Punic\Data
+     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \RedCat\Localize\Punic\Data
      * @return array[string] Returns a list containing some the following values: 'zero', 'one', 'two', 'few', 'many', 'other' ('other' will be always there)
      */
     public static function getRules($locale = '')
     {
-        $node = \Wild\Localize\Punic\Data::getLanguageNode(\Wild\Localize\Punic\Data::getGeneric('plurals'), $locale);
+        $node = \RedCat\Localize\Punic\Data::getLanguageNode(\RedCat\Localize\Punic\Data::getGeneric('plurals'), $locale);
 
         return array_merge(
             array_keys($node),
@@ -25,9 +25,9 @@ class Plural
     /**
      * Return the plural rule ('zero', 'one', 'two', 'few', 'many' or 'other') for a number and a locale
      * @param string|int|float $number The number to check the plural rule for for
-     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \Wild\Localize\Punic\Data
+     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \RedCat\Localize\Punic\Data
      * @return string Returns one of the following values: 'zero', 'one', 'two', 'few', 'many', 'other'
-     * @throws \Wild\Localize\Punic\Exception\BadArgumentType Throws a \Wild\Localize\Punic\Exception\BadArgumentType if $number is not a valid number
+     * @throws \RedCat\Localize\Punic\Exception\BadArgumentType Throws a \RedCat\Localize\Punic\Exception\BadArgumentType if $number is not a valid number
      * @throws \Exception Throws a \Exception if there were problems calculating the plural rule
      */
     public static function getRule($number, $locale = '')
@@ -75,7 +75,7 @@ class Plural
             $v6 = '0';
         }
         $result = 'other';
-        $node = \Wild\Localize\Punic\Data::getLanguageNode(\Wild\Localize\Punic\Data::getGeneric('plurals'), $locale);
+        $node = \RedCat\Localize\Punic\Data::getLanguageNode(\RedCat\Localize\Punic\Data::getGeneric('plurals'), $locale);
         foreach ($node as $rule => $formulaPattern) {
             $formula = sprintf($formulaPattern, $v1, $v2, $v3, $v4, $v5, $v6);
             $check = str_replace(array('static::inRange(', ' and ', ' or ', ', false, ', ', true, ', ', array('), ' , ', $formula);

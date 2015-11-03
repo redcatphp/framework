@@ -6,17 +6,17 @@
  * @version 1.3
  * @link http://github.com/surikat/Mvc/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
-namespace Wild\Mvc;
-use Wild\Wire\Di;
+namespace RedCat\Mvc;
+use RedCat\Wire\Di;
 class Route implements \ArrayAccess,\Iterator,\Countable{
 	private $model;
 	private $view;
     private $controller;
     private $templateEngine;
     private $di;
-    function __construct($model='Wild\Mvc\Model', $view='Wild\Mvc\View', $controller = null, $templateEngine = null, Di $di = null){
+    function __construct($model='RedCat\Mvc\Model', $view='RedCat\Mvc\View', $controller = null, $templateEngine = null, Di $di = null){
         $this->model = $model;
         $this->view = $view;
         $this->controller = $controller;

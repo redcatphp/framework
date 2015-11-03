@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an data file has not been found
  */
-class DataFileNotFound extends \Wild\Localize\Punic\Exception
+class DataFileNotFound extends \RedCat\Localize\Punic\Exception
 {
     protected $identifier;
     protected $locale;
@@ -33,7 +33,7 @@ class DataFileNotFound extends \Wild\Localize\Punic\Exception
                 $message = "Unable to find the data file '$identifier', neither for '$locale' nor for '$fallbackLocale'";
             }
         }
-        parent::__construct($message, \Wild\Localize\Punic\Exception::DATA_FILE_NOT_FOUND, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::DATA_FILE_NOT_FOUND, $previous);
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap;
+namespace RedCat\DataMap;
 class EntityModel implements Observer{
 	protected $__data = [];
 	public $_modified;

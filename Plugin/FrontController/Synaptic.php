@@ -1,7 +1,7 @@
-<?php namespace Wild\Plugin\FrontController;
-use Wild\Route\Router;
-use Wild\Wire\Di;
-use Wild\Plugin\Tools\JSMin;
+<?php namespace RedCat\Plugin\FrontController;
+use RedCat\Route\Router;
+use RedCat\Wire\Di;
+use RedCat\Plugin\Tools\JSMin;
 class Synaptic {
 	
 	protected $pathFS;
@@ -25,7 +25,7 @@ class Synaptic {
 	}
 	function __invoke($params){
 		list($filename,$extension) = $params;
-		$this->appendDir('surikat');
+		$this->appendDir('redcat');
 		$this->load($this->pathFS.$filename.'.'.$extension);
 	}
 	
@@ -190,7 +190,7 @@ class Synaptic {
 			if(is_dir($dir=$d.'css'))
 				$from[] = $dir;
 		}
-		$scss = $this->di->create('Wild\Stylize\Server');
+		$scss = $this->di->create('RedCat\Stylize\Server');
 		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from,['config','vars']);
 	}
 	function fileCache($output){

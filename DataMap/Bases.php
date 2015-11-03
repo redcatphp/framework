@@ -10,9 +10,9 @@
  * @version 1.3
  * @link http://github.com/surikat/DataMap/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
-namespace Wild\DataMap;
+namespace RedCat\DataMap;
 class Bases implements \ArrayAccess{
 	private $map;
 	private $mapObjects= [];

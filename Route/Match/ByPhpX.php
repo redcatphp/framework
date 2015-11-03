@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Route\Match;
+namespace RedCat\Route\Match;
 class ByPhpX extends ByPhp {
 	function __invoke($uri){
 		if($this->dir&&strpos($uri,$this->dir)!==0)

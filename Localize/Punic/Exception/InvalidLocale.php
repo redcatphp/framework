@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an invalid locale specification has been hit
  */
-class InvalidLocale extends \Wild\Localize\Punic\Exception
+class InvalidLocale extends \RedCat\Localize\Punic\Exception
 {
     protected $locale;
 
@@ -22,7 +22,7 @@ class InvalidLocale extends \Wild\Localize\Punic\Exception
         } else {
             $message = "A valid locale should be a string, $type received";
         }
-        parent::__construct($message, \Wild\Localize\Punic\Exception::INVALID_LOCALE, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::INVALID_LOCALE, $previous);
     }
 
     /**

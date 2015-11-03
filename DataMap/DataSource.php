@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap;
-use Wild\DataMap\Helper\CaseConvert;
+namespace RedCat\DataMap;
+use RedCat\DataMap\Helper\CaseConvert;
 abstract class DataSource implements \ArrayAccess{
 	protected $bases;
 	protected $type;
@@ -95,7 +95,7 @@ abstract class DataSource implements \ArrayAccess{
 			unset($this->tableMap[$k]);
 	}
 	function loadTable($k,$primaryKey,$uniqTextKey){
-		$c = 'Wild\DataMap\DataTable\\'.ucfirst($this->type);
+		$c = 'RedCat\DataMap\DataTable\\'.ucfirst($this->type);
 		return new $c($k,$primaryKey,$uniqTextKey,$this);
 	}
 	function construct(array $config=[]){}

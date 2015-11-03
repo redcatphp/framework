@@ -6,9 +6,9 @@
  * @version 1.2
  * @link http://github.com/surikat/Debug/
  * @author Jo Surikat <jo@surikat.pro>
- * @website http://wildsurikat.com
+ * @website http://redcatphp.com
  */
-namespace Wild\Debug;
+namespace RedCat\Debug;
 abstract class Vars{
 	static function debugs(){
 		if(!headers_sent())

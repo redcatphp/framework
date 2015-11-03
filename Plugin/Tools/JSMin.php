@@ -1,4 +1,4 @@
-<?php namespace Wild\Plugin\Tools;
+<?php namespace RedCat\Plugin\Tools;
 /**
  * JSMin.php - modified PHP implementation of Douglas Crockford's JSMin.
  *

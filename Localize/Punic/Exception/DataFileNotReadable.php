@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an data file was not read
  */
-class DataFileNotReadable extends \Wild\Localize\Punic\Exception
+class DataFileNotReadable extends \RedCat\Localize\Punic\Exception
 {
     protected $dataFilePath;
 
@@ -17,7 +17,7 @@ class DataFileNotReadable extends \Wild\Localize\Punic\Exception
     {
         $this->dataFilePath = $dataFilePath;
         $message = "Unable to read from the data file '$dataFilePath'";
-        parent::__construct($message, \Wild\Localize\Punic\Exception::DATA_FILE_NOT_READABLE, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::DATA_FILE_NOT_READABLE, $previous);
     }
 
     /**

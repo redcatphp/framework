@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap\DataSource;
-use Wild\DataMap\Exception;
+namespace RedCat\DataMap\DataSource;
+use RedCat\DataMap\Exception;
 class Mysql extends SQL{
 	const C_DATATYPE_BOOL             = 0;
 	const C_DATATYPE_UINT32           = 1;

@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Localize;
+namespace RedCat\Localize;
 class Route{
 	function byAcceptLanguage($_map=[],$default='en',$url=null,$http_accept_language = ''){
 		if(!isset($url))
@@ -71,14 +71,14 @@ class Route{
 	}
 	function getSuffixHref(){
 		if(!isset($this->suffixHref)){
-			if(isset($_SERVER['SURIKAT_URI'])){
-				$this->suffixHref = ltrim($_SERVER['SURIKAT_URI'],'/');				
+			if(isset($_SERVER['REDCAT_URI'])){
+				$this->suffixHref = ltrim($_SERVER['REDCAT_URI'],'/');				
 			}
 			else{
 				$docRoot = $_SERVER['DOCUMENT_ROOT'].'/';
 				//$docRoot = dirname($_SERVER['SCRIPT_FILENAME']).'/';
-				if(defined('SURIKAT_CWD'))
-					$cwd = SURIKAT_CWD;
+				if(defined('REDCAT_CWD'))
+					$cwd = REDCAT_CWD;
 				else
 					$cwd = getcwd();
 				if($docRoot!=$cwd&&strpos($cwd,$docRoot)===0)

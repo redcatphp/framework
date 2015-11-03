@@ -1,4 +1,4 @@
-<?php namespace Wild\Localize;
+<?php namespace RedCat\Localize;
 class FileReader {
   var $_pos;
   var $_fd;

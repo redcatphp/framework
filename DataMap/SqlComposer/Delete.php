@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 class Delete extends Where {
 	protected $delete_from = [];
 	protected $ignore = false;

@@ -1,6 +1,6 @@
 <?php
-namespace Wild\Plugin\Templix\Markup;
-class Video extends \Wild\Templix\Markup{
+namespace RedCat\Plugin\Templix\Markup;
+class Video extends \RedCat\Templix\Markup{
 	function load(){
 		if($this->source){
 			$this->prepend('

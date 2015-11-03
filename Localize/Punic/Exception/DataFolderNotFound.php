@@ -1,10 +1,10 @@
 <?php
-namespace Wild\Localize\Punic\Exception;
+namespace RedCat\Localize\Punic\Exception;
 
 /**
  * An exception raised when an data folder has not been found
  */
-class DataFolderNotFound extends \Wild\Localize\Punic\Exception
+class DataFolderNotFound extends \RedCat\Localize\Punic\Exception
 {
     protected $locale;
     protected $fallbackLocale;
@@ -24,7 +24,7 @@ class DataFolderNotFound extends \Wild\Localize\Punic\Exception
         } else {
             $message = "Unable to find the specified locale folder, neither for '$locale' nor for '$fallbackLocale'";
         }
-        parent::__construct($message, \Wild\Localize\Punic\Exception::DATA_FOLDER_NOT_FOUND, $previous);
+        parent::__construct($message, \RedCat\Localize\Punic\Exception::DATA_FOLDER_NOT_FOUND, $previous);
     }
 
     /**

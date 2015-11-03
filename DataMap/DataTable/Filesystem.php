@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap\DataTable;
-use Wild\DataMap\DataTable;
+namespace RedCat\DataMap\DataTable;
+use RedCat\DataMap\DataTable;
 class Filesystem extends DataTable{
 	private $directoryIterator;
 	private $patterns = [];

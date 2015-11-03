@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\SqlComposer;
+namespace RedCat\DataMap\SqlComposer;
 abstract class Base {
 	protected static $operators = ['>','>=','<','<=','=','!=','between','in'];
 	private static $__apiProp = [

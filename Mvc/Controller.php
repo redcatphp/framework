@@ -1,6 +1,6 @@
 <?php
-namespace Wild\Mvc;
-use Wild\Wire\Di;
+namespace RedCat\Mvc;
+use RedCat\Wire\Di;
 abstract class Controller {
 	protected $model;
 	protected $di;

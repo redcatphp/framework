@@ -1,5 +1,5 @@
 <?php
-namespace Wild\DataMap\DataTable;
+namespace RedCat\DataMap\DataTable;
 class Pgsql extends SQL{
 	protected $fulltextHeadline = [
 		'MaxFragments'=>2,

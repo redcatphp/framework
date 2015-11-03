@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Localize\Punic;
+namespace RedCat\Localize\Punic;
 
 /**
  * Units helper stuff
@@ -12,11 +12,11 @@ class Unit
      * @param int|float|string $number The unit amount
      * @param string $unit The unit identifier (eg 'duration/millisecond' or 'millisecond')
      * @param string $width = 'short' The format name; it can be 'long' (eg '3 milliseconds'), 'short' (eg '3 ms') or 'narrow' (eg '3ms'). You can also add a precision specifier ('long,2' or just '2')
-     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \Wild\Localize\Punic\Data
+     * @param string $locale = '' The locale to use. If empty we'll use the default locale set in \RedCat\Localize\Punic\Data
      */
     public static function format($number, $unit, $width = 'short', $locale = '')
     {
-        $data = \Wild\Localize\Punic\Data::get('units', $locale);
+        $data = \RedCat\Localize\Punic\Data::get('units', $locale);
         $precision = null;
         if (is_int($width)) {
             $precision = $width;
@@ -72,9 +72,9 @@ class Unit
                     }
                 }
             }
-            throw new \Wild\Localize\Punic\Exception\ValueNotInList($unit, $units);
+            throw new \RedCat\Localize\Punic\Exception\ValueNotInList($unit, $units);
         }
-        $pluralRule = \Wild\Localize\Punic\Plural::getRule($number, $locale);
+        $pluralRule = \RedCat\Localize\Punic\Plural::getRule($number, $locale);
         //@codeCoverageIgnoreStart
         // These checks aren't necessary since $pluralRule should always be in $rules, but they don't hurt ;)
         if (!array_key_exists($pluralRule, $rules)) {
@@ -86,6 +86,6 @@ class Unit
             }
         }
         //@codeCoverageIgnoreEnd
-        return sprintf($rules[$pluralRule], \Wild\Localize\Punic\Number::format($number, $precision, $locale));
+        return sprintf($rules[$pluralRule], \RedCat\Localize\Punic\Number::format($number, $precision, $locale));
     }
 }

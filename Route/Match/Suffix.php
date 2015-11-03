@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Route\Match;
+namespace RedCat\Route\Match;
 class Suffix{
 	private $match;
 	function __construct($match){

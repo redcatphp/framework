@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Localize;
+namespace RedCat\Localize;
 use Locale;
 class AcceptLanguage{
 	static function get($http_accept_language = ''){

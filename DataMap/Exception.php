@@ -1,3 +1,3 @@
 <?php
-namespace Wild\DataMap;
+namespace RedCat\DataMap;
 class Exception extends \Exception {}

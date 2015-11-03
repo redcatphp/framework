@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Plugin\RouteMatch;
-class ByPhpX extends \Wild\Route\Match\ByPhpX {
-	protected $dirs = ['','surikat/'];
+namespace RedCat\Plugin\RouteMatch;
+class ByPhpX extends \RedCat\Route\Match\ByPhpX {
+	protected $dirs = ['','redcat/'];
 }

@@ -1,9 +1,9 @@
 <?php
-namespace Wild\DataMap\DataSource;
-use Wild\DataMap\DataSource;
-use Wild\DataMap\Wild\DataMap;
-use Wild\DataMap\Helper\SqlLogger;
-use Wild\DataMap\Exception;
+namespace RedCat\DataMap\DataSource;
+use RedCat\DataMap\DataSource;
+use RedCat\DataMap\RedCat\DataMap;
+use RedCat\DataMap\Helper\SqlLogger;
+use RedCat\DataMap\Exception;
 abstract class SQL extends DataSource{
 	protected $dsn;
 	protected $pdo;

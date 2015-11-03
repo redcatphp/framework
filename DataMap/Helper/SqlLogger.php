@@ -1,17 +1,17 @@
 <?php
-namespace Wild\DataMap\Helper;
-use Wild\DataMap\Helper\SqlFormatter;
+namespace RedCat\DataMap\Helper;
+use RedCat\DataMap\Helper\SqlFormatter;
 class SqlLogger {
 	protected $echo;
 	protected $keep;
 	protected $html;
-	protected $useWildDebug;
+	protected $useRedCatDebug;
 	protected $logs = [];
-	function __construct($echo=null,$keep=null,$html=true,$useWildDebug=true){
+	function __construct($echo=null,$keep=null,$html=true,$useRedCatDebug=true){
 		$this->setEcho($echo);
 		$this->setKeep($keep);
 		$this->setHtml($html);
-		$this->setUseUnitDebug($useWildDebug);
+		$this->setUseUnitDebug($useRedCatDebug);
 	}
 	function setEcho($b=true){
 		$this->echo = (bool)$b;
@@ -23,7 +23,7 @@ class SqlLogger {
 		$this->html = (bool)$b;
 	}
 	function setUseUnitDebug($b=true){
-		$this->useWildDebug = (bool)$b;
+		$this->useRedCatDebug = (bool)$b;
 	}
 	function getLogs(){
 		return $this->logs;
@@ -101,11 +101,11 @@ class SqlLogger {
 	function logResult($r){
 		if(!$this->keep&&!$this->echo)
 			return;
-		if($this->useWildDebug&&class_exists('Wild\Debug\Vars')){
+		if($this->useRedCatDebug&&class_exists('RedCat\Debug\Vars')){
 			if($this->html)
-				$newStr = \Wild\Debug\Vars::debug_html_return($r);
+				$newStr = \RedCat\Debug\Vars::debug_html_return($r);
 			else
-				$newStr = \Wild\Debug\Vars::debug_return($r);
+				$newStr = \RedCat\Debug\Vars::debug_return($r);
 		}
 		else{
 			if($this->html){

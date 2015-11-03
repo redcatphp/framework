@@ -1,6 +1,6 @@
 <?php
-namespace Wild\DataMap\DataSource;
-use Wild\DataMap\Exception;
+namespace RedCat\DataMap\DataSource;
+use RedCat\DataMap\Exception;
 class Sqlite extends SQL{
 	const C_DATATYPE_INTEGER   = 0;
 	const C_DATATYPE_NUMERIC   = 1;

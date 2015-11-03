@@ -1,6 +1,6 @@
 <?php
-namespace Wild\Route;
-use Wild\Wire\Di;
+namespace RedCat\Route;
+use RedCat\Wire\Di;
 class FrontController implements \ArrayAccess{
 	private $router;
 	protected $di;
@@ -36,8 +36,8 @@ class FrontController implements \ArrayAccess{
 		$this->router->offsetUnset($k);
 	}
 	function runFromGlobals(){
-		if(isset($_SERVER['SURIKAT_URI'])){
-			$s = strlen($_SERVER['SURIKAT_URI'])-1;
+		if(isset($_SERVER['REDCAT_URI'])){
+			$s = strlen($_SERVER['REDCAT_URI'])-1;
 			$p = strpos($_SERVER['REQUEST_URI'],'?');
 			if($p===false)
 				$path = substr($_SERVER['REQUEST_URI'],$s);

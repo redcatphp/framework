@@ -1,5 +1,5 @@
 <?php
-namespace Wild\Plugin\Templix;
+namespace RedCat\Plugin\Templix;
 #
 #
 # Parsedown
