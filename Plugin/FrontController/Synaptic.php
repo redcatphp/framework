@@ -25,7 +25,7 @@ class Synaptic {
 	}
 	function __invoke($params){
 		list($filename,$extension) = $params;
-		$this->appendDir('redcat');
+		$this->appendDir('shared');
 		$this->load($this->pathFS.$filename.'.'.$extension);
 	}
 	

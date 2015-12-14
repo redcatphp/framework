@@ -28,9 +28,9 @@ class TemplixL10n extends Templix{
 		
 		if(is_array($file)){
 			list($hook,$file) = (array)$file;
-			if(substr($hook,0,8)=='redcat/')
+			if(substr($hook,0,8)=='shared/')
 				$hook = substr($hook,8);
-			$this->setDirCwd([$hook.'/','redcat/'.$hook.'/']);
+			$this->setDirCwd([$hook.'/','shared/'.$hook.'/']);
 		}
 		
 		$this->Translator->set($lang);
@@ -115,7 +115,7 @@ class TemplixL10n extends Templix{
 		
 		
 		if(!$cache){
-			$TML->prepend('<?php include REDCAT.\'php/RedCat/Localize/__.php\'; ?>');
+			$TML->prepend('<?php include REDCAT_SRC.\'RedCat/Localize/__.php\'; ?>');
 		}
 		$TML('html')->attr('lang',$this->Translator->getLangCode());
 		$TML('*[ni18n] *, script, style, code')->data('i18n',false);
@@ -233,8 +233,8 @@ class TemplixL10n extends Templix{
 			else{
 				$docRoot = $this->server['DOCUMENT_ROOT'].'/';
 				//$docRoot = dirname($this->server['SCRIPT_FILENAME']).'/';
-				if(defined('REDCAT_CWD'))
-					$cwd = REDCAT_CWD;
+				if(defined('REDCAT_PUBLIC'))
+					$cwd = REDCAT_PUBLIC;
 				else
 					$cwd = getcwd();
 				if($docRoot!=$cwd&&strpos($cwd,$docRoot)===0)

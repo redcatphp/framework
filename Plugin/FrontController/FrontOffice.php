@@ -11,7 +11,7 @@ class FrontOffice extends \RedCat\Route\FrontController{
 			['backend/','new:RedCat\Plugin\FrontController\Backoffice'],
 			[['new:RedCat\Route\Match\Extension','css|js|png|jpg|jpeg|gif'],'new:RedCat\Plugin\FrontController\Synaptic'],
 			[['new:RedCat\Plugin\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','template'],'new:RedCat\Plugin\Templix\Templix'.($this->l10n?'L10n':'')],
-			[['new:RedCat\Plugin\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','redcat/template'],'new:RedCat\Plugin\Templix\Templix'.($this->l10n?'L10n':'')],
+			[['new:RedCat\Plugin\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','shared/template'],'new:RedCat\Plugin\Templix\Templix'.($this->l10n?'L10n':'')],
 		]);
 	}
 	function run($path,$domain=null){

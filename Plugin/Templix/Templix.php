@@ -112,9 +112,9 @@ class Templix extends \RedCat\Templix\Templix{
 	function __invoke($file){
 		if(is_array($file)){
 			list($hook,$file) = (array)$file;
-			if(substr($hook,0,8)=='redcat/')
+			if(substr($hook,0,8)=='shared/')
 				$hook = substr($hook,8);
-			$this->setDirCwd([$hook.'/','redcat/'.$hook.'/']);
+			$this->setDirCwd([$hook.'/','shared/'.$hook.'/']);
 		}
 		return $this->query($file);
 	}

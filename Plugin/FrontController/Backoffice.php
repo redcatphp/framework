@@ -30,7 +30,7 @@ class Backoffice extends \RedCat\Route\FrontController{
 		$AuthServer->htmlLock('RIGHT_MANAGE',true);
 	}
 	function __invoke($uri,$domain=null){
-		Autoload::getInstance()->addNamespace('',REDCAT_CWD.$this->pathFS.'/php');
+		Autoload::getInstance()->addNamespace('',REDCAT_PUBLIC.$this->pathFS.'/php');
 		return $this->run($uri);
 	}
 	function run($path,$domain=null){

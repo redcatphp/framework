@@ -26,8 +26,8 @@ class Toolbox{
 		$Tml->recursive(function($el)use($Tml,$head,$href,&$s){
 			$is = $el->attr('is')?$el->attr('is'):(preg_match('/(?:[a-z][a-z]+)-(?:[a-z][a-z]+)/is',$el->nodeName)?$el->nodeName:false);
 			if($is&&!in_array($is,$s)&&!$head->children('link[href="'.$href.strtolower($is).'.css"]',0)){
-				if(	is_file(REDCAT_CWD.$href.strtolower($is).'.css')
-					||is_file(REDCAT_CWD.$href.strtolower($is).'.scss')
+				if(	is_file(REDCAT_PUBLIC.$href.strtolower($is).'.css')
+					||is_file(REDCAT_PUBLIC.$href.strtolower($is).'.scss')
 					||is_file(REDCAT.$href.strtolower($is).'.css')
 					||is_file(REDCAT.$href.strtolower($is).'.scss')
 				){
