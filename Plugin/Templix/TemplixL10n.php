@@ -115,7 +115,7 @@ class TemplixL10n extends Templix{
 		
 		
 		if(!$cache){
-			$TML->prepend('<?php include REDCAT_SRC.\'RedCat/Localize/__.php\'; ?>');
+			$TML->prepend('<?php include REDCAT.\'vendor/redcatphp/localize/__.php\'; ?>');
 		}
 		$TML('html')->attr('lang',$this->Translator->getLangCode());
 		$TML('*[ni18n] *, script, style, code')->data('i18n',false);
