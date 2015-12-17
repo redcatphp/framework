@@ -24,7 +24,7 @@
 		"redcatphp/route": "*",
 		"redcatphp/stylize": "*",
 		"redcatphp/templix": "*",
-		"redcatphp/wire": "*"
+		"redcatphp/wire": "*",
 		"symfony/console": "^3.0",
 		"grom358/pharborist": "dev-master",
 		"zendframework/zend-diactoros": ">=1.3",
