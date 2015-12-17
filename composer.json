@@ -30,11 +30,5 @@
 		"zendframework/zend-diactoros": ">=1.3",
 		"psr/http-message": ">=1.0"
 	},
-	"autoload": {
-		"psr-4":{
-			"RedCat\\": ""
-		}
->>>>>>> 468835e45643789c6db02051e10ee3849994b6a5
-	},
 	"minimum-stability": "dev"
 }
