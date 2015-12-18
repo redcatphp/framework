@@ -9,35 +9,6 @@ class Toolbox{
 			$server = &$_SERVER;
 		$this->server = $server;
 	}
-	
-	function is($Tml,$href='css/is.'){
-		$head = $Tml->find('head',0);
-		if(!$head){
-			if($Tml->find('body',0)){
-				$head = $Tml;
-				$head->append('<script type="text/javascript" src="/js/js.js"></script>');
-				$head->append('<script type="text/javascript">$js().dev=true;$js().min=false;$css().min=false;</script>');
-			}
-			else{
-				return;
-			}
-		}
-		$s = [];
-		$Tml->recursive(function($el)use($Tml,$head,$href,&$s){
-			$is = $el->attr('is')?$el->attr('is'):(preg_match('/(?:[a-z][a-z]+)-(?:[a-z][a-z]+)/is',$el->nodeName)?$el->nodeName:false);
-			if($is&&!in_array($is,$s)&&!$head->children('link[href="'.$href.strtolower($is).'.css"]',0)){
-				if(	is_file(REDCAT_PUBLIC.$href.strtolower($is).'.css')
-					||is_file(REDCAT_PUBLIC.$href.strtolower($is).'.scss')
-					||is_file(REDCAT.$href.strtolower($is).'.css')
-					||is_file(REDCAT.$href.strtolower($is).'.scss')
-				){
-					$s[] = $is;
-				}
-			}
-		});
-		foreach($s as $is)
-			$head->append('<link href="'.$href.strtolower($is).'.css" rel="stylesheet" type="text/css">');
-	}
 	function autoMIN($Tml){
 		if($Tml->templix&&!$Tml->templix->devCss){
 			foreach($Tml('link[href][rel=stylesheet],link[href][type="text/css"]') as $l)

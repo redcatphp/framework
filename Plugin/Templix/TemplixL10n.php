@@ -240,8 +240,8 @@ class TemplixL10n extends Templix{
 			else{
 				$docRoot = $this->server['DOCUMENT_ROOT'].'/';
 				//$docRoot = dirname($this->server['SCRIPT_FILENAME']).'/';
-				if(defined('REDCAT_PUBLIC'))
-					$cwd = REDCAT_PUBLIC;
+				if(defined('REDCAT_CWD'))
+					$cwd = REDCAT_CWD;
 				else
 					$cwd = getcwd();
 				if($docRoot!=$cwd&&strpos($cwd,$docRoot)===0)

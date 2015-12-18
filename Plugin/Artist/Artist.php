@@ -18,7 +18,7 @@ abstract class Artist extends Command{
 	protected $cwd;
 	
 	protected function configure(){
-		$this->cwd = defined('REDCAT_PUBLIC')?REDCAT_PUBLIC:getcwd().'/';
+		$this->cwd = defined('REDCAT_CWD')?REDCAT_CWD:getcwd().'/';
 		$c = explode('\\', get_class($this));
 		$c = array_pop($c);
 		$c = strtolower(preg_replace('/([^A-Z])([A-Z])/', '$1:$2', $c));

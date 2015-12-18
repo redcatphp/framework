@@ -6,8 +6,8 @@ class Number{
 	private $hash;
 	function __construct($cwd=null,$hashLength=9){
 		if(!isset($cwd)){
-			if(defined('REDCAT_PUBLIC'))
-				$cwd = REDCAT_PUBLIC;
+			if(defined('REDCAT_CWD'))
+				$cwd = REDCAT_CWD;
 			else
 				$cwd = getcwd();
 		}

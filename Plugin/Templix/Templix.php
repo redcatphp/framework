@@ -28,7 +28,6 @@ class Templix extends \RedCat\Templix\Templix{
 		$this->onCompile(function($tml){
 			if($tml->templix->getParent())
 				return;
-			$this->toolbox->is($tml);
 			if(!$tml->devTemplate)
 				$this->toolbox->autoMIN($tml);
 		});
