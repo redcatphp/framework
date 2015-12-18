@@ -24,7 +24,7 @@
 		"redcatphp/route": "@dev",
 		"redcatphp/stylize": "@dev",
 		"redcatphp/templix": "@dev",
-		"redcatphp/wire": "@dev",
+		"redcatphp/wire": ">=1.7",
 		"symfony/console": "^3.0",
 		"grom358/pharborist": "dev-master",
 		"zendframework/zend-diactoros": ">=1.3",
@@ -32,7 +32,8 @@
 	},
 	"autoload": {
 		"psr-4":{
-			"RedCat\\Plugin\\": "Plugin"
+			"RedCat\\Plugin\\": "Plugin",
+			"RedCat\\": ""
 		}
 	},
 	"minimum-stability": "dev"
