@@ -1,6 +1,7 @@
 <?php
-namespace RedCat;
-class App extends Wire\Di{
+namespace RedCat\Framework;
+use RedCat\Wire\Di;
+class App extends Di{
 	protected $autoload;
 	static function bootstrap(){
 		$config = [REDCAT.'.config.php'];
