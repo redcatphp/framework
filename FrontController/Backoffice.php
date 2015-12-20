@@ -5,7 +5,7 @@ use RedCat\Identify\Session;
 use RedCat\Autoload\Autoload;
 use RedCat\Route\Router;
 use RedCat\Wire\Di;
-class Backoffice extends \RedCat\Route\FrontController{
+class Backoffice extends FrontController{
 	public $pathFS = 'plugin/backoffice';
 	function __construct(Router $router,Di $di){
 		parent::__construct($router,$di);

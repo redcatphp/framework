@@ -2,7 +2,7 @@
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Wire\Di;
-class FrontOffice extends \RedCat\Route\FrontController{
+class FrontOffice extends FrontController{
 	protected $l10n;
 	function __construct(Router $router,Di $di,$l10n=null){
 		$this->l10n = $l10n;
