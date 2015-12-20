@@ -1,15 +1,30 @@
 <?php
 namespace RedCat\Framework;
 use RedCat\Wire\Di;
+use RedCat\Debug\ErrorHandler;
+use RedCat\Autoload\Autoload;
 class App extends Di{
 	protected $autoload;
+	protected static $singleton;
+	static function get(){
+		if(!isset(static::$singleton))
+			self::set();
+		return static::$singleton;
+	}
+	static function set(){
+		if(func_num_args())
+			static::$singleton = func_get_arg(0);
+		else{
+			$config = [REDCAT.'.config.php'];
+			if(REDCAT_CWD!=REDCAT)
+				$config[] = REDCAT_CWD.'.config.php';
+			static::$singleton = static::load($config);
+		}
+	}
 	static function bootstrap(){
-		$config = [REDCAT.'.config.php'];
-		if(REDCAT_CWD!=REDCAT)
-			$config[] = REDCAT_CWD.'.config.php';
-		$app = static::load($config);
+		$app = static::get();
 		if($app['dev']['php']){
-			$app->create('RedCat\Debug\ErrorHandler')->handle();
+			$app->create(ErrorHandler::class)->handle();
 		}
 		else{
 			error_reporting(0);
@@ -25,7 +40,7 @@ class App extends Di{
 	}
 	function autoload($base_dir=null,$prefix=''){
 		if(!isset($this->autoload)){
-			$this->autoload = $this->create('RedCat\Autoload\Autoload');
+			$this->autoload = $this->create(Autoload::class);
 			$this->autoload->splRegister();
 		}
 		if(is_array($base_dir))
