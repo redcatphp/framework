@@ -6,7 +6,7 @@ class Clearcache extends Artist{
 	protected $opts = [];
 	protected function exec(){
 		$path = $this->cwd.'.config.php';
-		$rm = $this->rmdir($this->cwd.'.tmp');
+		$rm = $this->rmdir($this->cwd.'.tmp',true);
 		if($rm===true)
 			$this->output->writeln('cache cleaned');
 		elseif($rm===false)
@@ -14,7 +14,7 @@ class Clearcache extends Artist{
 		else
 			$this->output->writeln('cache was allready empty');
 	}
-	private function rmdir($dir){
+	private function rmdir($dir, $keepRoot=false){
 		if(is_dir($dir)){
 			$dh = opendir($dir);
 			if($dh){
@@ -28,19 +28,21 @@ class Clearcache extends Artist{
 								$this->output->writeln('deletion failed '.$fullpath);
 						}
 						else{
-							self::rmdir($fullpath);
+							$this->rmdir($fullpath);
 						}
 					}
 				}
 				closedir($dh);
 			}
-			if(rmdir($dir)){
-				$this->output->writeln('deleted '.$dir.'/');
-				return true;
-			}
-			else{
-				$this->output->writeln('deletion failed '.$dir.'/');
-				return false;
+			if(!$keepRoot){
+				if(rmdir($dir)){
+					$this->output->writeln('deleted '.$dir.'/');
+					return true;
+				}
+				else{
+					$this->output->writeln('deletion failed '.$dir.'/');
+					return false;
+				}
 			}
 		}
 	}
