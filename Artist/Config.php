@@ -1,7 +1,5 @@
 <?php
 namespace RedCat\Framework\Artist;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use RedCat\Framework\PHPConfig\TokenTree;
 class Config extends Artist{
 	protected $description = "Update .config.php file at root of application";
@@ -16,13 +14,13 @@ class Config extends Artist{
 		'unshift'=>'prepend a value in array',
 	];
 	
-	protected function execute(InputInterface $input, OutputInterface $output){
-		$key = $input->getArgument('key');
-		$value = $input->getArgument('value');
+	protected function exec(){
+		$key = $this->input->getArgument('key');
+		$value = $this->input->getArgument('value');
 		
-		$unset = $input->getOption('unset');
-		$push = $input->getOption('push');
-		$unshift = $input->getOption('unshift');
+		$unset = $this->input->getOption('unset');
+		$push = $this->input->getOption('push');
+		$unshift = $this->input->getOption('unshift');
 		
 		$path = $this->cwd.'.config.php';
 		$config = new TokenTree($path);
@@ -57,6 +55,6 @@ class Config extends Artist{
 			}
 			file_put_contents($path,(string)$config);
 		}
-		$output->writeln($print);
+		$this->output->writeln($print);
 	}	
 }

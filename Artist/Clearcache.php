@@ -1,16 +1,10 @@
 <?php
 namespace RedCat\Framework\Artist;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 class Clearcache extends Artist{
 	protected $description = "Clear the content of .tmp directory at root of application";
-
 	protected $args = [];
 	protected $opts = [];
-	
-	protected $output;
-	protected function execute(InputInterface $input, OutputInterface $output){
-		$this->output = $output;
+	protected function exec(){
 		$path = $this->cwd.'.config.php';
 		$rm = $this->rmdir($this->cwd.'.tmp');
 		if($rm===true)
