@@ -2,8 +2,8 @@
 namespace RedCat\Framework\Artist;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 abstract class Artist extends Command{
 	protected $description;
@@ -16,7 +16,14 @@ abstract class Artist extends Command{
 	protected $shortOpts = [];
 	
 	protected $cwd;
-	
+	protected $input;
+	protected $output;
+	protected function execute(InputInterface $input, OutputInterface $output){
+		$this->input = $input;
+		$this->output = $output;
+		$this->exec();
+	}
+	abstract protected function exec();
 	protected function configure(){
 		$this->cwd = defined('REDCAT_CWD')?REDCAT_CWD:getcwd().'/';
 		$c = explode('\\', get_class($this));
