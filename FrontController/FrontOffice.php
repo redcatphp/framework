@@ -2,6 +2,7 @@
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Wire\Di;
+use RedCat\Framework\Templix\Templix;
 class FrontOffice extends FrontController{
 	protected $l10n;
 	function __construct(Router $router,Di $di,$l10n=null){
@@ -16,7 +17,7 @@ class FrontOffice extends FrontController{
 	}
 	function run($path,$domain=null){
 		if(!parent::run($path,$domain)){
-			$this->di->create('RedCat\Framework\Templix\Templix')->query(404);
+			$this->di->create(Templix::class)->query(404);
 			exit;
 		}
 		return true;
