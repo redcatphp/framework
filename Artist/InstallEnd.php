@@ -15,7 +15,5 @@ class InstallEnd extends Artist{
 				$this->output->writeln('.tmp creation failed');
 			}
 		}
-		if(is_file($this->cwd.'.tmp')&&chmod($this->cwd.'.tmp',0777))
-			$this->output->writeln('.tmp to chmod 0777');
 	}
 }
