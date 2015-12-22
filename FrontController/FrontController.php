@@ -15,7 +15,7 @@ class FrontController extends \RedCat\Route\FrontController{
 			}
 		}
 		if(!$matcher)
-			throw new Exception('Call to undefined method '.$call.' on '.get_class().' and no class matching with '.$call.' in '.print_r($this->matchNamespaces,true));
+			throw new \Exception('Call to undefined method '.$call.' on '.get_class().' and no class matching with '.$call.' in '.print_r($this->matchNamespaces,true));
 		array_unshift($args,$matcher);
 		return call_user_func_array([$this,'append'],$args);
 	}
