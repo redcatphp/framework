@@ -21,7 +21,9 @@ class App extends Di{
 			static::$singleton = static::load($config);
 		}
 	}
-	static function bootstrap(){
+	static function bootstrap($configMap=null){
+		if($configMap)
+			self::set(self::load($configMap));
 		$app = static::get();
 		if($app['dev']['php']){
 			$app->create(ErrorHandler::class)->handle();
