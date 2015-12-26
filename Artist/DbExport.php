@@ -3,7 +3,7 @@ namespace RedCat\Framework\Artist;
 use RedCat\DataMap\Bases;
 use RedCat\DataMap\DataSource\SQL;
 class DbExport extends Artist{
-	protected $description = "Make a class definition file according to PSR-4 convention";
+	protected $description = "Export a database to json lines format";
 
 	protected $args = [
 		'db'=>'The key of database to save from config map',
