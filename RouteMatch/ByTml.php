@@ -1,6 +1,7 @@
 <?php
 namespace RedCat\Framework\RouteMatch;
-class ByTml {
+use RedCat\Route\MatchInterface;
+class ByTml implements MatchInterface{
 	protected $uriDir;
 	protected $physicalDir;
 	protected $extension;
@@ -17,5 +18,8 @@ class ByTml {
 		$file = $this->physicalDir.'/'.ltrim($uri,'/').$this->extension;
 		if(is_file($file))
 			return [$this->physicalDir,$uri];
+	}
+	function getMatch(){
+		return [$this->uriDir=>$this->physicalDir,$this->extension];
 	}
 }
