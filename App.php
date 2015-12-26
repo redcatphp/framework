@@ -38,6 +38,11 @@ class App extends Di{
 					header('Location: /500',true,302);
 			});
 		}
+		if($app['autoload']){
+			foreach($app['autoload'] as $autoload){
+				call_user_func_array([$app,'autoload'],(array)$autoload);
+			}
+		}
 		return $app;
 	}
 	function autoload($base_dir=null,$prefix=''){
