@@ -1,10 +1,11 @@
 <?php
 namespace RedCat\Framework\FrontController;
-class FrontController extends \RedCat\Route\FrontController{
+abstract class FrontController extends \RedCat\Route\FrontController implements RouterInterface{
 	protected $matchNamespaces = [
 		'RedCat\Framework\RouteMatch',
 		'RedCat\Route\Match',
 	];
+	abstract function load();
 	function __call($call,$args){
 		$call = ucfirst($call);
 		$matcher = null;
