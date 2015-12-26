@@ -33,12 +33,13 @@ class RouteList extends Artist{
 						$parameter = json_encode($resolver);
 					}
 				}
-				elseif(is_array($callback)){
+				elseif(is_array($resolver)){
 					$resolverString = 'Callable Array';
 					$parameter = json_encode($resolver);
 				}
 				else{
-					
+					$resolverString = $resolver;
+					$parameter = '';
 				}
 				
 				if(is_object($callback))
