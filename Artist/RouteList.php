@@ -4,6 +4,7 @@ use Symfony\Component\Console\Helper\Table;
 use RedCat\Framework\FrontController\RouterInterface;
 use RedCat\Route\MatchInterface;
 class RouteList extends Artist{
+	protected $description = 'Show a list of routes defined in the main front controller';
 	protected $router;
 	function __construct($name = null,RouterInterface $router=null){
 		parent::__construct($name);
