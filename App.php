@@ -25,7 +25,7 @@ class App extends Di{
 		if($configMap)
 			self::set(self::load($configMap));
 		$app = static::get();
-		if($app['dev']['php']){
+		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']){
 			$app->create(ErrorHandler::class)->handle();
 		}
 		else{
@@ -38,8 +38,8 @@ class App extends Di{
 					header('Location: /500',true,302);
 			});
 		}
-		if($app['autoload']){
-			foreach($app['autoload'] as $autoload){
+		if(isset($app['autoload'])){
+			foreach((array)$app['autoload'] as $autoload){
 				call_user_func_array([$app,'autoload'],(array)$autoload);
 			}
 		}

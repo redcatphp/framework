@@ -8,6 +8,8 @@ class FrontOffice extends FrontController{
 	function __construct(Router $router,Di $di,$l10n=null){
 		$this->l10n = $l10n;
 		parent::__construct($router,$di);
+	}
+	function load(){
 		$this->map([
 			['backend/','new:RedCat\Framework\FrontController\Backoffice'],
 			[['new:RedCat\Route\Match\Extension','css|js|png|jpg|jpeg|gif'],'new:RedCat\Framework\FrontController\Synaptic'],
