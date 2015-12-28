@@ -21,7 +21,11 @@ class Number{
 		$this->cwd = $c;
 	}
 	function get(){
-		if(file_exists($file=$this->cwd.'.git/refs/heads/master')||file_exists($file=$this->cwd.'.revision')){
+		if(
+			file_exists($file=$this->cwd.'.git/refs/heads/master')
+			||file_exists($file=$this->cwd.'.revision')
+			||file_exists($file=$this->cwd.'.git-ftp.log')
+		){
 			$h = file_get_contents($file);
 			if($this->hashLength)
 				$h = substr($h,0,$this->hashLength);
