@@ -11,7 +11,7 @@ class FrontOffice extends FrontController{
 	}
 	function load(){
 		$this->map([
-			['backend/','new:RedCat\Framework\FrontController\Backoffice'],
+			[['new:RedCat\Route\Match\Prefix','backend/'],[['new:RedCat\Framework\FrontController\Backoffice'],'load']],
 			[['new:RedCat\Route\Match\Extension','css|js|png|jpg|jpeg|gif'],'new:RedCat\Framework\FrontController\Synaptic'],
 			[['new:RedCat\Framework\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','template'],'new:RedCat\Framework\Templix\Templix'.($this->l10n?'L10n':'')],
 			[['new:RedCat\Framework\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','shared/template'],'new:RedCat\Framework\Templix\Templix'.($this->l10n?'L10n':'')],
