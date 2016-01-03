@@ -3,6 +3,7 @@ namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Wire\Di;
 use RedCat\Framework\Tools\JSMin;
+use RedCat\Stylize\Server as StylizeServer;
 class Synaptic {
 	
 	protected $pathFS;
@@ -191,7 +192,7 @@ class Synaptic {
 			if(is_dir($dir=$d.'css'))
 				$from[] = $dir;
 		}
-		$scss = $this->di->create('RedCat\Stylize\Server');
+		$scss = $this->di->create(StylizeServer::class);
 		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from,['config','vars']);
 	}
 	function fileCache($output){
