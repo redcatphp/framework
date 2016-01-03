@@ -16,9 +16,11 @@ class Toolbox{
 					$l->href = (strpos($l->href,'/')!==false?dirname($l->href).'/':'').pathinfo($l->href,PATHINFO_FILENAME).'.min.'.pathinfo($l->href,PATHINFO_EXTENSION);
 		}
 		if($Tml->templix&&!$Tml->templix->devJs){
-			foreach($Tml('script[src]') as $s)
-				if(strpos($s->src,'://')===false&&substr($s->src,-8)!='.pack.js')
-					$s->src = (strpos($s->src,'/')!==false?dirname($s->src).'/':'').pathinfo($s->src,PATHINFO_FILENAME).'.min.'.pathinfo($l->src,PATHINFO_EXTENSION);
+			foreach($Tml('script[src]') as $s){
+				if(strpos($s->src,'://')===false&&substr($s->src,-8)!='.pack.js'){
+					$s->src = (strpos($s->src,'/')!==false?dirname($s->src).'/':'').pathinfo($s->src,PATHINFO_FILENAME).'.min.'.pathinfo($s->src,PATHINFO_EXTENSION);
+				}
+			}
 		}
 	}
 	function setCDN($Tml,$url){
