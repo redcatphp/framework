@@ -19,28 +19,34 @@ class Clearcache extends Artist{
 			$this->output->writeln('cache was allready empty');
 	}
 	private function rmdir($dir, $keepRoot=false){
+		$ok = null;
 		$relative = substr($dir,strlen($this->tmpPath)+1);
 		if(in_array($relative,$this->exceptions))
-			return true;
+			return;
 		if(is_dir($dir)){
 			$dh = opendir($dir);
-			$ok = null;
 			if($dh){
-				$ok = true;
 				while(false!==($file=readdir($dh))){
 					if($file!='.'&&$file!='..'){
 						$fullpath = $dir.'/'.$file;
 						if(is_file($fullpath)){
 							if(unlink($fullpath)){
 								$this->output->writeln('deleted '.$fullpath);
+								if($ok!==false){
+									$ok = true;
+								}
 							}
 							else{
 								$this->output->writeln('deletion failed '.$fullpath);
 								$ok = false;
 							}
 						}
-						elseif(!$this->rmdir($fullpath)){
-							$ok = false;
+						else{
+							$r = $this->rmdir($fullpath);
+							if($r===true&&$ok!==false)
+								$ok = true;
+							elseif($r===false)
+								$ok = false;
 						}
 					}
 				}
@@ -49,14 +55,16 @@ class Clearcache extends Artist{
 			if(!$keepRoot){
 				if(rmdir($dir)){
 					$this->output->writeln('deleted '.$dir.'/');
-					$ok = true;
+					if($ok!==false){
+						$ok = true;
+					}
 				}
 				else{
 					$this->output->writeln('deletion failed '.$dir.'/');
 					$ok = false;
 				}
 			}
-			return $ok;
 		}
+		return $ok;
 	}
 }
