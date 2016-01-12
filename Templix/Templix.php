@@ -45,7 +45,7 @@ class Templix extends \RedCat\Templix\Templix{
 	function setHttpEtag($etag){
 		$this->httpEtag = $etag;
 	}
-	function query($path=null,$vars=[]){
+	function query($path=null,$vars=[]){		
 		$this['URI'] = $path;
 		
 		if(isset($this->di['versioning'])){
@@ -108,13 +108,13 @@ class Templix extends \RedCat\Templix\Templix{
 		if(isset($buffer))
 			print $buffer;			
 	}
-	function __invoke($file){
+	function __invoke($file,$vars=[]){
 		if(is_array($file)){
 			list($hook,$file) = (array)$file;
 			if(substr($hook,0,8)=='shared/')
 				$hook = substr($hook,8);
 			$this->setDirCwd([$hook.'/','shared/'.$hook.'/']);
 		}
-		return $this->query($file);
+		return $this->query($file,$vars);
 	}
 }
