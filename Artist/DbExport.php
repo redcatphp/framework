@@ -39,11 +39,17 @@ class DbExport extends Artist{
 		
 		foreach($b as $tableName=>$table){
 			$fp = fopen($dirDb.$tableName.'.rows.jsonl','a');
+			$i = 0;
 			foreach($table as $row){
-				unset($row->_type);
-				fwrite($fp,json_encode($row)."\n");
+				$properties = [];
+				foreach($row as $k=>$v){
+					if(substr($k,0,1)!='_')
+						$properties[$k] = $v;
+				}
+				fwrite($fp,json_encode($properties)."\n");
+				$i++;
 			}
-			$this->output->writeln('Rows of table '.$tableName.' exported');
+			$this->output->writeln('table '.$tableName.' exported: '.$i.' rows');
 			fclose($fp);
 			
 			if($b instanceof SQL){
@@ -60,7 +66,7 @@ class DbExport extends Artist{
 			}
 			
 		}
-		$this->output->writeln('DB '.$db.' exported to JSONL in '.$dirDb);
+		$this->output->writeln("DB $db exported to JSONL in $dirDb\n");
 		
 	}
 }
