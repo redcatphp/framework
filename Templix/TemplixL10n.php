@@ -21,7 +21,7 @@ class TemplixL10n extends Templix{
 		$this->langDefault = $langDefault;
 		$this->cdnSubdomain = $cdnSubdomain;
 	}
-	function __invoke($file){
+	function __invoke($file,$vars=[]){
 		list($lang,$langMap,$file) = (array)$file;
 		
 		$this['LANG'] = $lang;
@@ -61,7 +61,7 @@ class TemplixL10n extends Templix{
 			$TML('*')->removeAttr('i18n');
 		},true);
 		
-		return $this->query($file);
+		return $this->query($file,$vars);
 	}
 	function i18nWrapCode($rw,$cache=true){
 		if(!empty($rw)){
