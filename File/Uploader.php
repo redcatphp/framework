@@ -5,7 +5,7 @@ class Uploader{
 		'jpeg'=>'jpg',
 	];
 	function image($conf){
-		$conf = [
+		$conf = $conf+[
 			'dir'=>'',
 			'key'=>'image',
 			'rename'=>false,
@@ -14,7 +14,7 @@ class Uploader{
 			'multi'=>false,
 			'extensions'=>Image::$extensions,
 			'conversion'=>null,
-		]+$conf;
+		];
 		extract($conf);
 		$func = 'file'.($multi?'s':'');
 		return $this->$func($dir,$key,'image/',function($file)use($width,$height,$rename,$conversion){
