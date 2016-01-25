@@ -5,16 +5,16 @@ class Uploader{
 		'jpeg'=>'jpg',
 	];
 	function image($conf){
-		$conf = array_merge([
+		$conf = [
 			'dir'=>'',
 			'key'=>'image',
 			'rename'=>false,
 			'width'=>false,
 			'height'=>false,
 			'multi'=>false,
-			'extensions'=>Images::$extensions,
+			'extensions'=>Image::$extensions,
 			'conversion'=>null,
-		],$conf);
+		]+$conf;
 		extract($conf);
 		$func = 'file'.($multi?'s':'');
 		return $this->$func($dir,$key,'image/',function($file)use($width,$height,$rename,$conversion){
@@ -45,9 +45,9 @@ class Uploader{
 				$rename = $this->formatFilename($rename);
 				rename($file,dirname($file).'/'.$rename.'.'.$ext);
 			}
-			if(($width||$height)&&in_array($ext,Images::$extensions_resizable)){
+			if(($width||$height)&&in_array($ext,Image::$extensions_resizable)){
 				$thumb = dirname($file).'/'.pathinfo($file,PATHINFO_FILENAME).'.'.$width.'x'.$height.'.'.$ext;
-				Images::createThumb($file,$thumb,$width,$height,100,true);
+				Image::createThumb($file,$thumb,$width,$height,100,true);
 			}
 		},function($file){
 			$ext = strtolower(pathinfo($file,PATHINFO_EXTENSION));
