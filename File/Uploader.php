@@ -17,6 +17,7 @@ class Uploader{
 		];
 		extract($conf);
 		$func = 'file'.($multi?'s':'');
+		$dir = rtrim($dir,'/').'/';
 		return $this->$func($dir,$key,'image/',function($file)use($width,$height,$rename,$conversion){
 			$ext = strtolower(pathinfo($file,PATHINFO_EXTENSION));
 			if($conversion&&$ext!=$conversion&&($imgFormat=exif_imagetype($file))!=constant('IMAGETYPE_'.strtoupper($conversion))){
@@ -34,22 +35,25 @@ class Uploader{
 						throw new UploadException('image format conversion not supported');
 					break;
 				}
+				$oldFile = $file;
 				$file = substr($file,0,-1*strlen($ext)).$conversion;
 				$ext = $conversion;
 				$convertF = 'image'.$conversion;
 				$convertF($img, $file);
+				unlink($oldFile);
 			}
 			if($rename){
 				if($rename===true)
 					$rename = 'image';
 				$rename = $this->formatFilename($rename);
 				rename($file,dirname($file).'/'.$rename.'.'.$ext);
+				d($file,dirname($file).'/'.$rename.'.'.$ext);
 			}
 			if(($width||$height)&&in_array($ext,Image::$extensions_resizable)){
 				$thumb = dirname($file).'/'.pathinfo($file,PATHINFO_FILENAME).'.'.$width.'x'.$height.'.'.$ext;
 				Image::createThumb($file,$thumb,$width,$height,100,true);
 			}
-		},function($file){
+		},function($file)use($extensions){
 			$ext = strtolower(pathinfo($file,PATHINFO_EXTENSION));
 			if(!in_array($ext,(array)$extensions))
 				throw new UploadException('extension');
@@ -84,14 +88,14 @@ class Uploader{
 		if($callback)
 			$callback($dir.$name);
 	}
-	function file($dir,$k,$mime=null,$callback=null,$maxFileSize=null){
+	function file($dir,$k,$mime=null,$callback=null,$precallback=null,$maxFileSize=null){
 		if(isset($_FILES[$k])){
 			if($_FILES[$k]['name'])
-				$this->uploadFile($_FILES[$k],$dir,$mime,$callback,false,true,$maxFileSize);
+				$this->uploadFile($_FILES[$k],$dir,$mime,$callback,$precallback,true,$maxFileSize);
 			return true;
 		}
 	}
-	function files($dir,$k,$mime=null,$callback=null,$maxFileSize=null){
+	function files($dir,$k,$mime=null,$callback=null,$precallback=null,$maxFileSize=null){
 		if(isset($_FILES[$k])){
 			$files =& $_FILES[$k];
 			for($i=0;count($files['name'])>$i;$i++){
@@ -99,7 +103,7 @@ class Uploader{
 				foreach(array_keys($files) as $prop)
 					$file[$prop] =& $files[$prop][$i];
 				if($file['name'])
-					$this->uploadFile($file,$dir,$mime,$callback,false,true,$maxFileSize);
+					$this->uploadFile($file,$dir,$mime,$callback,$precallback,false,true,$maxFileSize);
 			}
 			return true;
 		}
