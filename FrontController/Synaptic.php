@@ -198,7 +198,7 @@ class Synaptic {
 				$from[] = $dir;
 		}
 		$scss = $this->di->create(StylizeServer::class);
-		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from,['config','vars']);
+		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from);
 	}
 	function fileCache($output){
 		$mtime = filemtime($output);
