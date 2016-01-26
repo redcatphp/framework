@@ -16,14 +16,16 @@ class Synaptic {
 	public $devCss;
 	
 	public $prefixMinPath = '.tmp/min/';
+	public $useModIncludeByHost;
 	
-	function __construct($pathFS='',$devJs=true,$devCss=true,Di $di){
+	function __construct($pathFS='',$devJs=true,$devCss=true,Di $di,$useModIncludeByHost=false){
 		$this->pathFS = rtrim($pathFS,'/');
 		if(!empty($this->pathFS))
 			$this->pathFS .= '/';
 		$this->devJs = $devJs;
 		$this->devCss = $devCss;
 		$this->di = $di;
+		$this->useModIncludeByHost = $useModIncludeByHost;
 	}
 	function __invoke($params){
 		list($filename,$extension) = $params;
@@ -64,7 +66,10 @@ class Synaptic {
 					}
 				}
 				if(substr($k,-7,-3)=='.min'){
-					$kv = (isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT']&&(int)$_SERVER['SERVER_PORT']!=80?':'.$_SERVER['SERVER_PORT']:'').'/'.substr($k,0,-7).'.js';
+					if($this->useModIncludeByHost)
+						$kv = (isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT']&&(int)$_SERVER['SERVER_PORT']!=80?':'.$_SERVER['SERVER_PORT']:'').'/'.substr($k,0,-7).'.js';
+					else
+						$kv = substr($k,0,-7).'.js';
 					if(!$this->minifyJS($kv,$k))
 						http_response_code(404);
 					return;
