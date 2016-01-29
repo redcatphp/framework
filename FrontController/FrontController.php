@@ -11,7 +11,10 @@ abstract class FrontController extends \RedCat\Route\FrontController implements 
 		$matcher = null;
 		foreach($this->matchNamespaces as $ns){
 			if(class_exists($c=$ns.'\\'.$call)){
-				$matcher = $this->di->create($c,[array_shift($args)]);
+				$params = array_shift($args);
+				if(!is_array($params))
+					$params = [$params];
+				$matcher = $this->di->create($c,$params);
 				break;
 			}
 		}
