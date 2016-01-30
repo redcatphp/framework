@@ -12,12 +12,12 @@ class Toolbox{
 	function autoMIN($Tml){
 		if($Tml->templix&&!$Tml->templix->devCss){
 			foreach($Tml('link[href][rel=stylesheet],link[href][type="text/css"]') as $l)
-				if(strpos($l,'://')===false)
+				if(strpos($l->href,'://')===false&&substr($l->href,-8)!='.min.css')
 					$l->href = (strpos($l->href,'/')!==false?dirname($l->href).'/':'').pathinfo($l->href,PATHINFO_FILENAME).'.min.'.pathinfo($l->href,PATHINFO_EXTENSION);
 		}
 		if($Tml->templix&&!$Tml->templix->devJs){
 			foreach($Tml('script[src]') as $s){
-				if(strpos($s->src,'://')===false&&substr($s->src,-8)!='.pack.js'){
+				if(strpos($s->src,'://')===false&&substr($s->src,-7)!='.min.js'){
 					$s->src = (strpos($s->src,'/')!==false?dirname($s->src).'/':'').pathinfo($s->src,PATHINFO_FILENAME).'.min.'.pathinfo($s->src,PATHINFO_EXTENSION);
 				}
 			}
