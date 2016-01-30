@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 use RedCat\Debug\ErrorHandler;
 use RedCat\Autoload\Autoload;
 class App extends Di{

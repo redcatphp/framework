@@ -42,4 +42,4 @@ PHP bootstrap
 ==============================
 
  All php RedCat components are distributed under the ["RedCat" namespace](https://github.com/redcatphp/php-components). They are forming a complete php suite where all components are decoupled and the use cases and couplings can be found in subnamespace ["RedCat\\Plugin"](http://redcatphp.com/plugins) .
- An example of bootstrap is files "index.phps" and "redcat.php" in [RedCat-Framework](https://github.com/redcatphp/redcat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Wire\\Di"](http://redcatphp.com/wire-dependency-injection).
+ An example of bootstrap is files "index.phps" and "redcat.php" in [RedCat-Framework](https://github.com/redcatphp/redcat/), where in this case, the [IoC](https://en.wikipedia.org/wiki/Inversion_of_control) is performed accross the whole application from ".config.php" via ["Ding\\Di"](http://redcatphp.com/ding-dependency-injection).

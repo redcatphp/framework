@@ -1,7 +1,7 @@
 <?php
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 use RedCat\Framework\Tools\JSMin;
 use RedCat\Stylize\Server as StylizeServer;
 class Synaptic {

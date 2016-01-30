@@ -1,7 +1,7 @@
 <?php
 namespace RedCat\Framework\Templix;
 use RedCat\Localize\Translator;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 class TemplixL10n extends Templix{
 	protected $Translator;
 	protected $autoWrapL10n = true;

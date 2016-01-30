@@ -1,7 +1,7 @@
 <?php
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 use RedCat\Framework\Templix\Templix;
 class FrontOffice extends FrontController{
 	protected $l10n;

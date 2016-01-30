@@ -16,6 +16,7 @@
 	"require": {
 		"php": ">=5.4.0",
 		"redcatphp/autoload": "@dev",
+		"redcatphp/ding": "@dev",
 		"redcatphp/datamap": "@dev",
 		"redcatphp/debug": "@dev",
 		"redcatphp/identify": "@dev",
@@ -24,7 +25,6 @@
 		"redcatphp/route": "@dev",
 		"redcatphp/stylize": "@dev",
 		"redcatphp/templix": "@dev",
-		"redcatphp/wire": "@dev",
 		"symfony/console": "^3.0",
 		"grom358/pharborist": "dev-master",
 		"zendframework/zend-diactoros": ">=1.3",

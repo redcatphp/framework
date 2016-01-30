@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework\Templix;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 class Templix extends \RedCat\Templix\Templix{
 	private $di;
 	

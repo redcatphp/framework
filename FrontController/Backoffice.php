@@ -5,7 +5,7 @@ use RedCat\Identify\AuthServer;
 use RedCat\Identify\Session;
 use RedCat\Autoload\Autoload;
 use RedCat\Route\Router;
-use RedCat\Wire\Di;
+use RedCat\Ding\Di;
 use RedCat\Framework\Templix\Templix;
 class Backoffice extends FrontController{
 	public $pathFS = 'plugin/backoffice';
