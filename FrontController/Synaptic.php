@@ -2,8 +2,8 @@
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Ding\Di;
-use RedCat\Framework\Tools\JSMin;
 use RedCat\Stylize\Server as StylizeServer;
+use JShrink\Minifier as JSMin;
 class Synaptic {
 	
 	protected $pathFS;
@@ -130,7 +130,7 @@ class Synaptic {
 		if(strpos($f,'://')===false&&!is_file($f))
 			return false;
 		set_time_limit(0);
-		$c = JSMin::minify(file_get_contents($f));
+		$c = JSMin::minify(file_get_contents($f),['flaggedComments' => false]);
 		if(!$this->devJs){
 			
 			if($this->prefixMinPath)
