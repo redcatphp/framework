@@ -23,4 +23,11 @@ abstract class FrontController extends \RedCat\Route\FrontController implements 
 		array_unshift($args,$matcher);
 		return call_user_func_array([$this,'append'],$args);
 	}
+	function groupWrap($groups,$wrapparams,$method='prefix',$callback=null,$index=null,$continue=true){
+		foreach((array)$wrapparams as $wrapparam){
+			foreach((array)$groups as $group){
+				$this->$method($wrapparam,$callback,$group,$index,$continue);
+			}
+		}
+	}
 }
