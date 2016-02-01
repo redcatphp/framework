@@ -29,6 +29,9 @@ class RouteList extends Artist{
 						$resolverString = explode('\\',$resolverString);
 						$resolverString = array_pop($resolverString);
 						$parameter = $resolver->getMatch();
+						if(is_array($parameter)){
+							$parameter = json_encode($parameter);
+						}
 					}
 					else{
 						$parameter = json_encode($resolver);
@@ -47,7 +50,6 @@ class RouteList extends Artist{
 					$callback = get_class($callback);
 				elseif(is_array($callback))
 					$callback = json_encode($callback);
-				
 				
 				$rows[] = [$resolverString,$parameter,$callback,$zIndex,$group];
 			}
