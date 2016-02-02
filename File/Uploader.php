@@ -47,7 +47,6 @@ class Uploader{
 					$rename = 'image';
 				$rename = $this->formatFilename($rename);
 				rename($file,dirname($file).'/'.$rename.'.'.$ext);
-				d($file,dirname($file).'/'.$rename.'.'.$ext);
 			}
 			if(($width||$height)&&in_array($ext,Image::$extensions_resizable)){
 				$thumb = dirname($file).'/'.pathinfo($file,PATHINFO_FILENAME).'.'.$width.'x'.$height.'.'.$ext;
