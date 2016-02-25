@@ -1,13 +1,14 @@
 <?php
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
+use RedCat\Route\Request;
 use RedCat\Ding\Di;
 use RedCat\Framework\Templix\Templix;
 class FrontOffice extends FrontController{
 	protected $l10n;
-	function __construct(Router $router,Di $di,$l10n=null){
+	function __construct(Router $router,Request $request, Di $di,$l10n=null){
 		$this->l10n = $l10n;
-		parent::__construct($router,$di);
+		parent::__construct($router,$request,$di);
 	}
 	function load(){
 		$this->map([
