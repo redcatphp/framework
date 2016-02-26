@@ -1,10 +1,11 @@
 <?php
-namespace RedCat\Framework\FrontController;
+namespace RedCat\Framework;
 use RedCat\Route\Router;
 use RedCat\Route\Request;
 use RedCat\Ding\Di;
 use RedCat\Framework\Templix\Templix;
-class FrontOffice extends FrontController{
+use RedCat\Framework\FrontController\FrontController;
+class Route extends FrontController{
 	protected $l10n;
 	function __construct(Router $router,Request $request, Di $di,$l10n=null){
 		$this->l10n = $l10n;
