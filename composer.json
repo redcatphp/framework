@@ -21,7 +21,6 @@
 		"redcatphp/debug": "@dev",
 		"redcatphp/identify": "@dev",
 		"redcatphp/localize": "@dev",
-		"redcatphp/mvc": "@dev",
 		"redcatphp/route": "@dev",
 		"redcatphp/stylize": "@dev",
 		"redcatphp/templix": "@dev",
