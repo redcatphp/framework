@@ -131,7 +131,7 @@ class Synaptic {
 			return false;
 		set_time_limit(0);
 		$c = JSMin::minify(file_get_contents($f),['flaggedComments' => false]);
-		if(!$this->devJs){
+		if($this->devJs<2){
 			
 			if($this->prefixMinPath)
 				$min = $this->prefixMinPath.$min;
@@ -163,7 +163,7 @@ class Synaptic {
 				else
 					$c = file_get_contents($f);
 				$c = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    ',"\ r \ n", "\ r", "\ n", "\ t"],'',preg_replace( '! / \ *[^*]* \ *+([^/][^*]* \ *+)*/!','',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$c)));
-				if(!$this->devCss){
+				if($this->devCss<2){
 					$dir = dirname($file);
 					$min = $dir.'/'.pathinfo($file,PATHINFO_FILENAME).'.min.css';
 					
