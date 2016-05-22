@@ -151,6 +151,62 @@ class Synaptic {
 		echo $c;
 		return true;
 	}
+	static function minify_css($str){
+		# remove comments first (simplifies the other regex)
+		$re1 = <<<'EOS'
+(?sx)
+  # quotes
+  (
+    "(?:[^"\\]++|\\.)*+"
+  | '(?:[^'\\]++|\\.)*+'
+  )
+|
+  # comments
+  /\* (?> .*? \*/ )
+EOS;
+
+    $re2 = <<<'EOS'
+(?six)
+  # quotes
+  (
+    "(?:[^"\\]++|\\.)*+"
+  | '(?:[^'\\]++|\\.)*+'
+  )
+|
+  # ; before } (and the spaces after it while we're here)
+  \s*+ ; \s*+ ( } ) \s*+
+|
+  # all spaces around meta chars/operators
+  \s*+ ( [*$~^|]?+= | [{};,>~+-] | !important\b ) \s*+
+|
+  # spaces right of ( [ :
+  ( [[(:] ) \s++
+|
+  # spaces left of ) ]
+  \s++ ( [])] )
+|
+  # spaces left (and right) of :
+  \s++ ( : ) \s*+
+  # but not in selectors: not followed by a {
+  (?!
+    (?>
+      [^{}"']++
+    | "(?:[^"\\]++|\\.)*+"
+    | '(?:[^'\\]++|\\.)*+' 
+    )*+
+    {
+  )
+|
+  # spaces at beginning/end of string
+  ^ \s++ | \s++ \z
+|
+  # double spaces to single
+  (\s)\s+
+EOS;
+
+		$str = preg_replace("%$re1%", '$1', $str);
+		return preg_replace("%$re2%", '$1$2$3$4$5$6$7', $str);
+	}
 	protected function minifyCSS($file){
 		foreach($this->dirs as $d){
 			if(is_file($f=$d.$file)||is_file($f=$d.dirname($file).'/'.pathinfo($file,PATHINFO_FILENAME).'.scss')){
@@ -162,7 +218,25 @@ class Synaptic {
 				}
 				else
 					$c = file_get_contents($f);
-				$c = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    ',"\ r \ n", "\ r", "\ n", "\ t"],'',preg_replace( '! / \ *[^*]* \ *+([^/][^*]* \ *+)*/!','',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$c)));
+				
+				//solution 1
+				//$c = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    ',"\ r \ n", "\ r", "\ n", "\ t"],'',preg_replace( '! / \ *[^*]* \ *+([^/][^*]* \ *+)*/!','',preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!','',$c)));
+				
+				//solution 2
+				// comments
+				//$c = preg_replace('!/\*.*?\*/!s','', $c);
+				//$c = preg_replace('/\n\s*\n/',"\n", $c);
+				// space
+				//$c = preg_replace('/[\n\r \t]/',' ', $c);
+				//$c = preg_replace('/ +/',' ', $c);
+				//$c = preg_replace('/ ?([,:;{}]) ?/','$1',$c);
+				 //trailing;
+				//$c = preg_replace('/;}/','}',$c);
+				//$c = preg_replace('/;}/','}',$c);
+				
+				//solution 3
+				$c = self::minify_css($c);
+				
 				if($this->devCss<2){
 					$dir = dirname($file);
 					$min = $dir.'/'.pathinfo($file,PATHINFO_FILENAME).'.min.css';
@@ -173,7 +247,7 @@ class Synaptic {
 					}
 					
 					if(!is_dir($dir))
-						@mkdir($dir,0777,true);
+						mkdir($dir,0777,true);
 					file_put_contents($min,$c,LOCK_EX);
 					
 					$gzfile = $min.'.gz';
@@ -187,6 +261,7 @@ class Synaptic {
 				return true;
 			}
 		}
+		exit;
 		return false;
 	}
 	protected function scss($path) {
