@@ -25,8 +25,8 @@ class App extends Di{
 		if($configMap)
 			self::set(self::load($configMap));
 		$app = static::get();
-		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']){
-			$app->create(ErrorHandler::class)->handle();
+		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']['php']){
+			$app->create(ErrorHandler::class,[$app['dev']['php']])->handle();
 		}
 		else{
 			error_reporting(0);
