@@ -65,9 +65,8 @@ class Synaptic {
 						return;
 					}
 				}
-				
 				if(strpos($k,',')!==false){ //concat
-					
+					$minify = !isset($_GET['src']);
 					$x = explode(',',$k);
 					$concat = '';
 					foreach($x as $_k){
@@ -86,6 +85,7 @@ class Synaptic {
 						foreach($this->dirs as $d){
 							if(is_file($_f=$d.$_k)){
 								$c = file_get_contents($_f);
+								if(!$minify) $concat .= "/* $_f */\n";
 								$concat .= $c."\n";
 								$found = true;
 								break;
@@ -95,6 +95,7 @@ class Synaptic {
 							foreach($this->dirs as $d){
 								if(is_file($_f=$d.$_k2)){
 									$c = file_get_contents($_f);
+									if(!$minify) $concat .= "/* $_f */\n";
 									$concat .= $c."\n";
 									$found = true;
 									break;
@@ -110,14 +111,18 @@ class Synaptic {
 					
 					$f = $this->prefixMinPath.$k;
 					$dir = dirname($f);
-					$concat = JSMin::minify($concat,['flaggedComments'=>false]);
+					if($minify){
+						$concat = JSMin::minify($concat,['flaggedComments'=>false]);
+					}
 					if(!is_dir($dir))
 						@mkdir($dir,0777,true);
 					file_put_contents($f,$concat,LOCK_EX);
-					$gzfile = $f.'.gz';
-					$fp = gzopen($gzfile, 'w9');
-					gzwrite($fp,$concat);
-					gzclose($fp);
+					if($minify){
+						$gzfile = $f.'.gz';
+						$fp = gzopen($gzfile, 'w9');
+						gzwrite($fp,$concat);
+						gzclose($fp);
+					}
 					
 					header('Expires: '.gmdate('D, d M Y H:i:s', time()+$this->expires).'GMT');
 					header('Content-Type: application/javascript; charset:utf-8');
