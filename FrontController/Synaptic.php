@@ -65,6 +65,67 @@ class Synaptic {
 						return;
 					}
 				}
+				
+				if(strpos($k,',')!==false){ //concat
+					
+					$x = explode(',',$k);
+					$concat = '';
+					foreach($x as $_k){
+						$_k = urldecode($_k);
+						if(strpos($_k,'://')!==false){
+							$concat .= file_get_contents($_k);
+							continue;
+						}
+						if(substr($_k,-7,-3)=='.min'){
+							$_k2 = substr($_k,0,-7).'.js';
+						}
+						else{
+							$_k2 = substr($_k,0,-3).'.min.js';
+						}
+						$found = false;
+						foreach($this->dirs as $d){
+							if(is_file($_f=$d.$_k)){
+								$c = file_get_contents($_f);
+								$concat .= $c."\n";
+								$found = true;
+								break;
+							}
+						}
+						if(!$found){
+							foreach($this->dirs as $d){
+								if(is_file($_f=$d.$_k2)){
+									$c = file_get_contents($_f);
+									$concat .= $c."\n";
+									$found = true;
+									break;
+								}
+							}
+						}
+						if(!$found){
+							echo "js library not found '$_k'";
+							http_response_code(404);
+							return;
+						}
+					}
+					
+					$f = $this->prefixMinPath.$k;
+					$dir = dirname($f);
+					$concat = JSMin::minify($concat,['flaggedComments'=>false]);
+					if(!is_dir($dir))
+						@mkdir($dir,0777,true);
+					file_put_contents($f,$concat,LOCK_EX);
+					$gzfile = $f.'.gz';
+					$fp = gzopen($gzfile, 'w9');
+					gzwrite($fp,$concat);
+					gzclose($fp);
+					
+					header('Expires: '.gmdate('D, d M Y H:i:s', time()+$this->expires).'GMT');
+					header('Content-Type: application/javascript; charset:utf-8');
+					$this->fileCache($f);
+					readfile($f);
+					return;
+				}
+				
 				if(substr($k,-7,-3)=='.min'){
 					if($this->useModIncludeByHost)
 						$kv = (isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']=='on'?'https':'http').'://'.$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT']&&(int)$_SERVER['SERVER_PORT']!=80?':'.$_SERVER['SERVER_PORT']:'').'/'.substr($k,0,-7).'.js';
@@ -73,7 +134,7 @@ class Synaptic {
 					if(!$this->minifyJS($kv,$k))
 						http_response_code(404);
 					return;
-				}				
+				}
 				http_response_code(404);
 			break;
 			case 'css':
