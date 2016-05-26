@@ -7,7 +7,7 @@ class InstallRedcatphp extends Artist{
 	protected $args = [];
 	protected $opts = [];
 	protected function exec(){		
-		if($this->recursiveCopy($this->cwd.'packages/redcatphp/redcatphp',$this->cwd)){
+		if($this->recursiveCopy(realpath(__DIR__.'/../../redcatphp'),$this->cwd)){
 			$this->output->writeln('redcatphp bootstrap installed');
 		}
 		else{
