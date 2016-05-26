@@ -1,27 +1,155 @@
 <?php
 namespace RedCat\Framework;
-use RedCat\Route\Router;
-use RedCat\Route\Request;
+
 use RedCat\Ding\Di;
-use RedCat\Framework\Templix\Templix;
+use RedCat\Ding\CallTrait;
+use RedCat\DataMap\Bases;
+use RedCat\Route\Router;
+use RedCat\Route\Url;
+use RedCat\Framework\FrontController\Synaptic;
 use RedCat\Framework\FrontController\FrontController;
+use RedCat\Framework\FrontController\RenderInterface;
+
 class Route extends FrontController{
+	use CallTrait;
+	
+	protected $uri;	
+	protected $controller;
+	protected $controllerNamespace = 'MyApp\Controller';
+	protected $templixSubstitution = 'RedCat\Framework\Templix';
 	protected $l10n;
-	function __construct(Router $router,Request $request, Di $di,$l10n=null){
+	protected $useShared;
+	function __construct(Router $router,Request $request, Di $di, $l10n=false, $useShared=false){
 		$this->l10n = $l10n;
+		$this->useShared = $useShared;
 		parent::__construct($router,$request,$di);
 	}
+	function byTml(){
+		$method = __FUNCTION__;
+		if($this->l10n){
+			$method .= 'L10n';
+		}
+		return call_user_func([$this,'__call'],$method,func_get_args());
+	}
 	function load(){
-		$this->map([
-			[['new:RedCat\Route\Match\Prefix','backend/'],[['new:RedCat\Framework\FrontController\Backoffice'],'load']],
-			[['new:RedCat\Route\Match\Extension','css|js|png|jpg|jpeg|gif'],'new:RedCat\Framework\FrontController\Synaptic'],
-			[['new:RedCat\Framework\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','template'],'new:RedCat\Framework\Templix\Templix'.($this->l10n?'L10n':'')],
-			[['new:RedCat\Framework\RouteMatch\ByTml'.($this->l10n?'L10n':''),'','shared/template'],'new:RedCat\Framework\Templix\Templix'.($this->l10n?'L10n':'')],
-		]);
+		$this->callLoadRoutes();
+	}
+	protected function _loadRoutes(){
+		
+		$this->extension('css|js|png|jpg|jpeg|gif','new:'.Synaptic::class);
+		
+		$this->extension('jsonp',[$this,'outputJsonp']);
+		$this->extension('json',[$this,'outputJson']);
+		$this->append([$this,'findControllerRenderer'],[$this,'controllerApi']);
+		$this->append([$this,'findController'],[$this,'outputTml']);
+		
+		$this->byTml(['','view'],[$this,'view']);
+		if($this->useShared){
+			$this->byTml(['','shared/view'],[$this,'view']);
+		}
+		$this->prepend('401',[$this,'view']);
+		$this->prepend('403',[$this,'view']);
+		$this->prepend('404',[$this,'view']);
+		$this->prepend('500',[$this,'view']);
+	}
+	
+	function findControllerRenderer($uri){
+		$controller = $this->findController($uri);
+		if($controller){
+			list($controllerClass,$uri) = $controller;
+			if(is_subclass_of($controllerClass,RenderInterface::class))
+				return $controllerClass;
+		}
+	}
+	function findController($uri){
+		$ctrl = $this->controllerNamespace.'\\'.ucfirst(str_replace(['  ',' '], ['_','\\'], ucwords(str_replace(['/','-'], [' ','  '], $uri))));
+		if(substr($ctrl,-1)=='\\') $ctrl .= '_';
+		if(class_exists($ctrl)&&(new \ReflectionClass($ctrl))->isInstantiable())
+			return [$ctrl,$uri];
+	}
+	
+	function _controllerApi($controllerClass, Di $di){
+		$controller = $di($controllerClass);
+		$this->controller = $controller;
+		$method = isset($this->request['method'])?$this->request['method']:'__invoke';
+		$params = isset($this->request['params'])?$this->request['params']:[];
+		if($method!='__invoke'&&substr($method,0,1)=='_'){
+			throw new \RuntimeException("Underscore prefixed method \"$method\" is not allowed to public api access");
+		}
+		if(method_exists($controller, $method)){
+			if(!(new \ReflectionMethod($controller, $method))->isPublic()) {
+				throw new \RuntimeException("The called method is not public");
+			}
+			return $di->method($controller,$method,(array)$params);
+		}
+	}
+	function _outputTml($params, Di $di){
+		$template = $di($this->templixSubstitution);
+		
+		list($controllerClass,$uri) = $params;
+		
+		$data = $this->controllerApi($controllerClass);
+		
+		if(isset($data['_view'])){
+			$uri = $data['_view'];
+		}
+		
+		foreach(get_object_vars($this->controller) as $k=>$v){
+			$template[$k] = $v;
+		}
+		$template($uri, $data);
+	}
+	function outputJson($params){
+		if($params=$this->findController(array_shift($params))){
+			$data = $this->controllerApi(array_shift($params));
+		}
+		else{
+			$data = ['error'=>404];
+		}
+		if(!headers_sent()){
+			header('Content-type:application/json;charset=utf-8');
+		}
+		echo json_encode($data, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+	}
+	function outputJsonp($params){
+		$callback = $this->request['callback'];
+		unset($this->request['callback']);
+		if($params=$this->findController(array_shift($params))){
+			$data = $this->controllerApi(array_shift($params));
+		}
+		else{
+			$data = ['error'=>404];
+		}
+		if(!headers_sent()){
+			header('Content-type:application/javascript;charset=utf-8');
+		}
+		echo $callback.'('.json_encode($data, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT).');';
+	}
+	
+	function resolveRoute($href){
+		$routeVars = [
+			
+		];
+		$routeKeys = array_keys($routeVars);
+		foreach($routeKeys as &$rk) $rk = '${'.$rk.'}';
+		$routeValues = array_values($routeVars);
+		return str_replace($routeKeys,$routeValues,$href);
+	}
+	
+	function _view($path, $data=[], Di $di){
+		$templix = $di($this->templixSubstitution);
+		return $templix($path,$data);
+	}
+	function redirectBack(Url $url){
+		header('Location: '.$url->getBaseHref().(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:''),true,302);
+		exit;
+	}
+	function isAjax(){
+		return !empty($_SERVER['HTTP_X_REQUESTED_WITH'])&&strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])=='xmlhttprequest';
 	}
 	function run($path,$domain=null){
 		if(!parent::run($path,$domain)){
-			$this->di->create(Templix::class)->query(404);
+			$this->view(404);
 			exit;
 		}
 		return true;
