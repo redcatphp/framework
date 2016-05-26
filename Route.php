@@ -4,11 +4,13 @@ namespace RedCat\Framework;
 use RedCat\Ding\Di;
 use RedCat\Ding\CallTrait;
 use RedCat\DataMap\Bases;
+use RedCat\Route\Request;
 use RedCat\Route\Router;
 use RedCat\Route\Url;
 use RedCat\Framework\FrontController\Synaptic;
 use RedCat\Framework\FrontController\FrontController;
 use RedCat\Framework\FrontController\RenderInterface;
+use RedCat\Framework\Templix\Templix;
 
 class Route extends FrontController{
 	use CallTrait;
@@ -16,7 +18,7 @@ class Route extends FrontController{
 	protected $uri;	
 	protected $controller;
 	protected $controllerNamespace = 'MyApp\Controller';
-	protected $templixSubstitution = 'RedCat\Framework\Templix';
+	protected $templixSubstitution = Templix::class;
 	protected $l10n;
 	protected $useShared;
 	function __construct(Router $router,Request $request, Di $di, $l10n=false, $useShared=false){
