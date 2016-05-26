@@ -66,7 +66,7 @@ class PackagesnavRemap extends Artist{
 				break;
 			}
 			if(isset($libMap[$relative])){
-				if(substr($libMap[$relative],-1)=='/'){
+				if($libMap[$relative]==''||substr($libMap[$relative],-1)=='/'){
 					$relative = $libMap[$relative].$basename;
 				}
 				else{
