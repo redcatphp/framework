@@ -80,6 +80,7 @@ class PackagesnavRemap extends Artist{
 				do{
 					$dn = implode('/',$x);
 					if(isset($libMap[$dn.'/'])){
+						if($libMap[$dn.'/']===false) continue;
 						$relative = trim(rtrim($libMap[$dn.'/'],'/').'/'.$basename,'/');
 						if($dn!=$dirname){
 							$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
