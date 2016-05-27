@@ -36,6 +36,7 @@ class PackagesnavRemap extends Artist{
 			$basename = basename($relative);
 			$libMap = isset($map[$lib])?$map[$lib]:[];
 			if(!$libMap) continue;
+			$rewriteCssUrl = false;
 			switch($e){
 				case 'js':
 					$extDir = 'js';
@@ -43,6 +44,7 @@ class PackagesnavRemap extends Artist{
 				case 'scss':
 				case 'css':
 				case 'sass':
+					$rewriteCssUrl = true;
 				case 'less':
 					$extDir = 'css';
 				break;
@@ -102,6 +104,46 @@ class PackagesnavRemap extends Artist{
 			}
 			copy($original,$destination);
 			$this->output->writeln(substr($destination,$lcwd).' from '.substr($original,$lcwd));
+			if($rewriteCssUrl){
+				/* TODO define $baseUrl
+				$content = file_get_contents($destination);
+				$content = $this->rewriteCssUrl($content,$baseUrl);
+				file_put_contents($destination,$content);
+				$this->output->writeln(substr($destination,$lcwd).' urls rewrited');
+				*/
+			}
 		}
+	}
+	protected function rewriteCssUrl($content,$baseUrl){
+		return preg_replace_callback('#url\((.*)\)#',function($match)use($baseUrl){
+			$url = $match[1];
+			$url = trim($url);
+			$url = trim($url,"'\"");
+			if(strpos($url,'://')!==false){
+				return $match[0]; //no absolute
+			}
+			if(strpos($url,'#{$')!==false){
+				//todo: notify in cli, to resolve manually
+				return $match[0]; //no scss/sass var interporlated
+			}
+			
+			$url = $baseUrl.$url;
+			
+			//clean ..
+			$x = explode('/',$url);
+			$l = count($x);
+			$r = [];
+			for($i=0; $i<$l; $i++){
+				if($x[$i]=='..'&&!empty($r)){
+					array_pop($r);
+				}
+				else{
+					$r[] = $x[$i];
+				}
+			}
+			$url = implode('/',$r);
+			
+			return 'url("'.$url.'")';
+		},$content);
 	}
 }
