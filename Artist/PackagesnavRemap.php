@@ -23,6 +23,7 @@ class PackagesnavRemap extends Artist{
 		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
 		$keepmin = $this->input->getOption('keep-min');
 		$lcwd = strlen($this->cwd);
+		$movemap = [];
 		foreach($iterator as $item){
 			$path = (string)$item;
 			$se = pathinfo(pathinfo($path,PATHINFO_FILENAME),PATHINFO_EXTENSION);
@@ -31,12 +32,12 @@ class PackagesnavRemap extends Artist{
 			$x = explode('/',$iterator->getSubPathName());
 			$lib = array_shift($x);
 			$relative = implode('/',$x);
+			$relativeFrom = $relative;
 			$original = (string)$item;
 			$dirname = dirname($relative);
 			$basename = basename($relative);
 			$libMap = isset($map[$lib])?$map[$lib]:[];
-			if(!$libMap) continue;
-			$rewriteCssUrl = false;
+			if($libMap===false) continue;
 			switch($e){
 				case 'js':
 					$extDir = 'js';
@@ -44,7 +45,6 @@ class PackagesnavRemap extends Artist{
 				case 'scss':
 				case 'css':
 				case 'sass':
-					$rewriteCssUrl = true;
 				case 'less':
 					$extDir = 'css';
 				break;
@@ -94,7 +94,8 @@ class PackagesnavRemap extends Artist{
 				}
 				while(!empty($x));
 			}
-			$destination = $this->cwd.$extDir.'/'.$lib.'/'.$relative;
+			$path = $extDir.'/'.$lib.'/'.$relative;
+			$destination = $this->cwd.$path;
 			$dir = dirname($destination);
 			if(is_file($destination)){
 				unlink($destination);
@@ -103,47 +104,72 @@ class PackagesnavRemap extends Artist{
 				@mkdir($dir,0777,true);
 			}
 			copy($original,$destination);
+			$movemap[$relativeFrom] = [$path,$destination];
 			$this->output->writeln(substr($destination,$lcwd).' from '.substr($original,$lcwd));
-			if($rewriteCssUrl){
-				/* TODO define $baseUrl
+		}
+		foreach($movemap as $relativeFrom=>list($path,$destination)){
+			$e = pathinfo($destination,PATHINFO_EXTENSION);
+			if(in_array($e,['css','scss','sass','less'])){
+				//todo: $notifier
 				$content = file_get_contents($destination);
-				$content = $this->rewriteCssUrl($content,$baseUrl);
+				$content = $this->rewriteCssUrl($content,function($url)use($movemap,$relativeFrom){
+					$relativeDir = dirname($relativeFrom);
+					$relative = $this->cleanDotInUrl(ltrim($relativeDir.'/'.$url,'/'));
+					if(isset($movemap[$relative])){
+						$url = $movemap[$relative][0];
+					}
+					return $url;
+				});
 				file_put_contents($destination,$content);
 				$this->output->writeln(substr($destination,$lcwd).' urls rewrited');
-				*/
 			}
 		}
 	}
-	protected function rewriteCssUrl($content,$baseUrl){
-		return preg_replace_callback('#url\((.*)\)#',function($match)use($baseUrl){
+	protected function rewriteCssUrl($content,$remapUrl,$notifier=null){
+		return preg_replace_callback('#url\((.*)\)#',function($match)use($remapUrl){
 			$url = $match[1];
 			$url = trim($url);
 			$url = trim($url,"'\"");
-			if(strpos($url,'://')!==false){
-				return $match[0]; //no absolute
+			if(strpos($url,'://')!==false){ //no absolute
+				return $match[0];
 			}
-			if(strpos($url,'#{$')!==false){
-				//todo: notify in cli, to resolve manually
-				return $match[0]; //no scss/sass var interporlated
-			}
-			
-			$url = $baseUrl.$url;
-			
-			//clean ..
-			$x = explode('/',$url);
-			$l = count($x);
-			$r = [];
-			for($i=0; $i<$l; $i++){
-				if($x[$i]=='..'&&!empty($r)){
-					array_pop($r);
+			if(strpos($url,'#{$')!==false){ //no scss/sass var interporlated
+				if(isset($notifier)){
+					call_user_func($notifier,$url);
 				}
-				else{
-					$r[] = $x[$i];
+				return $match[0];
+			}
+
+			if(is_string($remapUrl)){
+				$url = $remapUrl.$url;
+			}
+			elseif(is_array($remapUrl)){
+				if(isset($remapUrl[$url])){
+					$url = $remapUrl[$url];
 				}
 			}
-			$url = implode('/',$r);
+			else{
+				$url = call_user_func($remapUrl,$url);
+			}
+
+			$url = $this->cleanDotInUrl($url);
 			
 			return 'url("'.$url.'")';
 		},$content);
+	}
+	protected function cleanDotInUrl($url){
+		$x = explode('/',$url);
+		$l = count($x);
+		$r = [];
+		for($i=0; $i<$l; $i++){
+			if($x[$i]=='..'&&!empty($r)){
+				array_pop($r);
+			}
+			else{
+				$r[] = $x[$i];
+			}
+		}
+		$url = implode('/',$r);
+		return $url;
 	}
 }
