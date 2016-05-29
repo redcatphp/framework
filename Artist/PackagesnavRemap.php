@@ -104,7 +104,7 @@ class PackagesnavRemap extends Artist{
 				@mkdir($dir,0777,true);
 			}
 			copy($original,$destination);
-			$movemap[$relativeFrom] = [$path,$destination];
+			$movemap[$lib.'/'.$relativeFrom] = [$path,$destination];
 			$this->output->writeln(substr($destination,$lcwd).' from '.substr($original,$lcwd));
 		}
 		foreach($movemap as $relativeFrom=>list($path,$destination)){
