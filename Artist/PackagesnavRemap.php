@@ -113,11 +113,17 @@ class PackagesnavRemap extends Artist{
 				//todo: $notifier
 				$content = file_get_contents($destination);
 				$content = $this->rewriteCssUrl($content,function($url)use($movemap,$relativeFrom){
+					$suffix = '';
+					if(false!==($p=strpos($url,'?'))){
+						$suffix = substr($url,$p);
+						$url = substr($url,0,$p);
+					}
 					$relativeDir = dirname($relativeFrom);
 					$relative = $this->cleanDotInUrl(ltrim($relativeDir.'/'.$url,'/'));
 					if(isset($movemap[$relative])){
 						$url = $movemap[$relative][0];
 					}
+					$url = $url.$suffix;
 					return $url;
 				});
 				file_put_contents($destination,$content);
@@ -126,7 +132,7 @@ class PackagesnavRemap extends Artist{
 		}
 	}
 	protected function rewriteCssUrl($content,$remapUrl,$notifier=null){
-		return preg_replace_callback('#url\((.*)\)#',function($match)use($remapUrl){
+		return preg_replace_callback('/url\(([^\\)]+)/s',function($match)use($remapUrl){
 			$url = $match[1];
 			$url = trim($url);
 			$url = trim($url,"'\"");
