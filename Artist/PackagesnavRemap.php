@@ -9,15 +9,38 @@ class PackagesnavRemap extends Artist{
 	protected function exec(){
 		$source = $this->cwd.'packages-nav';
 		$configPath = $this->cwd.'.packages-nav';
-		if(!is_file($configPath)){
-			$this->output->writeln(".packages-nav definition file not found");
-			return;
+		
+		if(is_file($configPath)){
+			$map = json_decode(file_get_contents($configPath),true);
+			if(!$map){
+				$this->output->writeln("$configPath definition file syntax error");
+				$map = [];
+			}
 		}
-		$map = json_decode(file_get_contents($configPath),true);
-		if(!$map){
-			$this->output->writeln(".packages-nav definition file syntax error");
-			return;
+		else{
+			$map = [];
 		}
+		
+		$map = $this->mergeSubPackages($source,$map);
+		$this->remap($source,$map);
+	}
+	protected function mergeSubPackages($source,$map){
+		$rdirectory = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
+		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
+		foreach($iterator as $item){
+			$path = (string)$item;
+			if(is_file($f=$path.'/.packages-nav')){
+				$m = json_decode(file_get_contents($f),true);
+				if(!$m){
+					$this->output->writeln("$f definition file syntax error");
+					continue;
+				}
+				$map = $map+$m;
+			}
+		}
+		return $map;
+	}
+	protected function remap($source,$map){
 		
 		$rdirectory = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
 		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
