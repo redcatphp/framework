@@ -25,17 +25,17 @@ class PackagesnavRemap extends Artist{
 		$this->remap($source,$map);
 	}
 	protected function mergeSubPackages($source,$map){
-		$rdirectory = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
-		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
-		foreach($iterator as $item){
-			$path = (string)$item;
+		foreach(glob($source.'/*',GLOB_ONLYDIR) as $path){
 			if(is_file($f=$path.'/.packages-nav')){
 				$m = json_decode(file_get_contents($f),true);
 				if(!$m){
 					$this->output->writeln("$f definition file syntax error");
 					continue;
 				}
-				$map = $map+$m;
+				$lib = basename($path);
+				if(!isset($map[$lib]))
+					$map[$lib] = [];
+				$map[$lib] += $m;
 			}
 		}
 		return $map;
@@ -105,7 +105,7 @@ class PackagesnavRemap extends Artist{
 				do{
 					$dn = implode('/',$x);
 					if(isset($libMap[$dn.'/'])){
-						if($libMap[$dn.'/']===false) continue;
+						if($libMap[$dn.'/']===false) continue 2;
 						$relative = trim(rtrim($libMap[$dn.'/'],'/').'/'.$basename,'/');
 						if($dn!=$dirname){
 							$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
