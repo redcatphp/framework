@@ -25,5 +25,36 @@ class InstallEnd extends Artist{
 		else{
 			$this->output->writeln('.config.env.php creation failed');
 		}
+		
+		$this->mergeSubPackagesConfig();
+	}
+	private function mergeSubPackagesConfig(){
+		$modified = false;
+		$path = $this->cwd.'.config.php';
+		$config = new TokenTree($path);
+		$source = $this->cwd.'packages';
+		$rdirectory = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
+		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
+		foreach($iterator as $item){
+			if(is_file($f=$item.'/redcat.config.php')){
+				self::merge_recursive($config,include($f));
+				$modified = true;
+			}
+		}
+		if($modified){
+			file_put_contents($path,(string)$config);
+		}
+	}
+	
+	private static function merge_recursive(&$a,$b){
+		foreach($b as $key=>$value){
+			if(is_array($value)&&isset($a[$key])&&is_array($a[$key])){
+				$a[$key] = self::merge_recursive($a[$key],$value);
+			}
+			else{
+				$a[$key] = $value;
+			}
+		}
+		return $a;
 	}
 }
