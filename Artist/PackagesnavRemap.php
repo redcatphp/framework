@@ -100,8 +100,10 @@ class PackagesnavRemap extends Artist{
 				}
 			}
 			else{
+				
 				$x = explode('/',trim($dirname,'/'));
-				$i =0;
+				$i = 0;
+				$match = false;
 				do{
 					$dn = implode('/',$x);
 					if(isset($libMap[$dn.'/'])){
@@ -110,12 +112,22 @@ class PackagesnavRemap extends Artist{
 						if($dn!=$dirname){
 							$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
 						}
+						$match = true;
 						break;
 					}
 					array_pop($x);
 					$i++;
 				}
 				while(!empty($x));
+				
+				if(!$match&&isset($libMap['/'])){
+					if($libMap['/']===false) continue;
+					$relative = trim(rtrim($libMap[$dn.'/'],'/').'/'.$basename,'/');
+					if($dn!=$dirname){
+						$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
+					}
+					break;
+				}
 			}
 			$path = $extDir.'/'.$lib.'/'.$relative;
 			$destination = $this->cwd.$path;
