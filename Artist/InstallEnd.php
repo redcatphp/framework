@@ -1,5 +1,6 @@
 <?php
 namespace RedCat\Framework\Artist;
+use RedCat\Framework\PHPConfig\TokenTree;
 class InstallEnd extends Artist{
 	protected $description = "Finalize installation";
 	protected $args = [];
