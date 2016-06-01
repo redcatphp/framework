@@ -23,9 +23,12 @@ class InstallRedcatphp extends Artist{
 		$force = $this->input->getOption('force');
 		$rdirectory = new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS);
 		$iterator = new RecursiveIteratorIterator($rdirectory,RecursiveIteratorIterator::SELF_FIRST);
+		$l = strlen($srouce);
 		foreach($iterator as $item){
+			$sub = $iterator->getSubPathName();
+			if(substr($sub,0,5)=='.git/') continue;
 			if($item->isDir()){
-				$d = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+				$d = $dest. $iterator->getSubPathName();
 				if(!is_dir($d)){
 					$r = mkdir($d);
 					if($r) $this->output->writeln("directory $d created");
@@ -36,7 +39,7 @@ class InstallRedcatphp extends Artist{
 				}
 			}
 			else{
-				$f = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName();
+				$f = $dest.$sub;
 				if(!is_file($f)){
 					$r = copy($item, $f);
 					if($r) $this->output->writeln("file $f copied");
