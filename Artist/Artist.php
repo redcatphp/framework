@@ -53,7 +53,7 @@ abstract class Artist extends Command{
 				$opt = $k;
 				$description = $v;
 			}
-			$mode = in_array($opt,$this->requiredOpts)?InputOption::VALUE_REQUIRED:InputOption::VALUE_NONE;
+			$mode = in_array($opt,$this->requiredOpts)?InputOption::VALUE_REQUIRED:InputOption::VALUE_OPTIONAL;
 			$short = isset($this->shortOpts[$opt])?$this->shortOpts[$opt]:null;
 			$this->addOption($opt,$short,$mode,$description);
 		}
