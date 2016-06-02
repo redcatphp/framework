@@ -188,11 +188,15 @@ class PackagesnavRemap extends Artist{
 		}
 	}
 	protected function rewriteCssUrl($content,$remapUrl,$notifier=null){
-		return preg_replace_callback('/url\(([^\\)]+)/s',function($match)use($remapUrl){
+		return preg_replace_callback('/url\(([^\\)]+)\)/s',function($match)use($remapUrl){
 			$url = $match[1];
 			$url = trim($url);
-			$url = trim($url,"'\"");
+			$url = trim($url,"'");
+			$url = trim($url,'"');
 			if(strpos($url,'://')!==false){ //no absolute
+				return $match[0];
+			}
+			if(substr($url,0,5)=='data:'){ //no data
 				return $match[0];
 			}
 			if(strpos($url,'#{$')!==false){ //no scss/sass var interporlated
