@@ -61,6 +61,7 @@ class PackagesnavRemap extends Artist{
 			$basename = basename($relative);
 			$libMap = isset($map[$lib])?$map[$lib]:[];
 			if($libMap===false) continue;
+			if(is_string($libMap)) $libMap = ['/'=>$libMap];
 			switch($e){
 				case 'js':
 					$extDir = 'js';
