@@ -47,6 +47,8 @@ class PackagesnavRemap extends Artist{
 		$keepmin = $this->input->getOption('keep-min');
 		$lcwd = strlen($this->cwd);
 		$movemap = [];
+		$defaultMap = isset($map['/'])?$map['/']:true;
+		if(is_string($defaultMap)) $defaultMap = ['/'=>$defaultMap];
 		foreach($iterator as $item){
 			$path = (string)$item;
 			$se = pathinfo(pathinfo($path,PATHINFO_FILENAME),PATHINFO_EXTENSION);
@@ -59,9 +61,12 @@ class PackagesnavRemap extends Artist{
 			$original = (string)$item;
 			$dirname = dirname($relative);
 			$basename = basename($relative);
-			$libMap = isset($map[$lib])?$map[$lib]:[];
+			$libMap = isset($map[$lib])?$map[$lib]:$defaultMap;
+			
 			if($libMap===false) continue;
-			if(is_string($libMap)) $libMap = ['/'=>$libMap];
+			elseif(is_string($libMap)) $libMap = ['/'=>$libMap];
+			elseif($libMap===true) $libMap = is_bool($defaultMap)?[]:$defaultMap;
+			
 			switch($e){
 				case 'js':
 					$extDir = 'js';
