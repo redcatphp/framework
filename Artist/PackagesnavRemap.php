@@ -67,8 +67,9 @@ class PackagesnavRemap extends Artist{
 		$movemap = [];
 		$defaultMap = isset($map['/'])?$map['/']:true;
 		if(is_string($defaultMap)) $defaultMap = ['/'=>$defaultMap];
+		
 		foreach($iterator as $item){
-			$path = (string)$item;
+			$original = $path = (string)$item;
 			$se = pathinfo(pathinfo($path,PATHINFO_FILENAME),PATHINFO_EXTENSION);
 			if($se=='min'&&!$keepmin) continue;
 			$e = pathinfo($path,PATHINFO_EXTENSION);
@@ -76,7 +77,6 @@ class PackagesnavRemap extends Artist{
 			$lib = array_shift($x);
 			$relative = implode('/',$x);
 			$relativeFrom = $relative;
-			$original = (string)$item;
 			$dirname = dirname($relative);
 			$basename = basename($relative);
 			$libMap = isset($map[$lib])?$map[$lib]:$defaultMap;
@@ -132,10 +132,9 @@ class PackagesnavRemap extends Artist{
 					$dn = implode('/',$x);
 					if(isset($libMap[$dn.'/'])){
 						if($libMap[$dn.'/']===false) continue 2;
-						$relative = trim(rtrim($libMap[$dn.'/'],'/').'/'.$basename,'/');
-						if($dn!=$dirname){
-							$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
-						}
+						$val = trim($libMap[$dn.'/'],'/');
+						$rel = ltrim(substr($dirname,strlen($dn)),'/');
+						$relative = trim($val.'/'.$rel.'/'.$basename,'/');
 						$match = true;
 						break;
 					}
@@ -146,11 +145,9 @@ class PackagesnavRemap extends Artist{
 				
 				if(!$match&&isset($libMap['/'])){
 					if($libMap['/']===false) continue;
-					$relative = trim(rtrim($libMap[$dn.'/'],'/').'/'.$basename,'/');
-					if($dn!=$dirname){
-						$relative = trim(substr($dirname,strlen($dn)).'/'.$relative,'/');
-					}
-					break;
+					$val = trim($libMap['/'],'/');
+					$rel = ltrim($dirname,'/');
+					$relative = trim($val.'/'.$rel.'/'.$basename,'/');
 				}
 			}
 			$path = $extDir.'/'.$lib.'/'.$relative;
