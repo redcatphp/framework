@@ -24,6 +24,16 @@ class PackagesnavRemap extends Artist{
 		$map = $this->mergeSubPackages($source,$map);
 		$this->remap($source,$map);
 	}
+	
+	protected function normalizeConfigValue($v){
+		if(is_string($v)){
+			$v = ['/'=>$v];
+		}
+		elseif($v===true){
+			$v = [];
+		}
+		return $v;
+	}
 	protected function mergeSubPackages($source,$map){
 		foreach(glob($source.'/*',GLOB_ONLYDIR) as $path){
 			if(is_file($f=$path.'/.packages-nav')){
@@ -33,9 +43,17 @@ class PackagesnavRemap extends Artist{
 					continue;
 				}
 				$lib = basename($path);
-				if(!isset($map[$lib]))
-					$map[$lib] = [];
-				$map[$lib] += $m;
+				if(!isset($map[$lib])){
+					$map[$lib] = $m;
+				}
+				elseif($map[$lib]===false||$m===false){
+					continue;
+				}
+				else{
+					$map[$lib] = $this->normalizeConfigValue($map[$lib]);
+					$m = $this->normalizeConfigValue($m);
+					$map[$lib] += $m;
+				}
 			}
 		}
 		return $map;
