@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\ArrayInput;
 abstract class Artist extends Command{
 	protected $description;
 	
@@ -57,5 +58,14 @@ abstract class Artist extends Command{
 			$short = isset($this->shortOpts[$opt])?$this->shortOpts[$opt]:null;
 			$this->addOption($opt,$short,$mode,$description);
 		}
+	}
+	protected function runCmd($cmd,$input=[],$output=null){
+		if(!($input instanceof InputInterface)){
+			$input = new ArrayInput((array)$input);
+		}
+		if(!($output instanceof OutputInterface)){
+			$output = $this->output;
+		}
+		return $this->getApplication()->find($cmd)->run($input, $output);
 	}
 }
