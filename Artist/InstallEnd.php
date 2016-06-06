@@ -37,7 +37,7 @@ class InstallEnd extends Artist{
 		$source = $this->cwd.'packages';
 		foreach(glob($source.'/*',GLOB_ONLYDIR) as $p){
 			if(is_file($f=$p.'/redcat.config.php')){
-				self::merge_recursive($config,include($f));
+				self::merge_recursive($config,new TokenTree($f));
 				$modified = true;
 			}
 		}
