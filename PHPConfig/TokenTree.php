@@ -10,14 +10,16 @@ use Pharborist\WhitespaceNode;
 use Pharborist\Types\ArrayNode;
 use Pharborist\Types\ArrayPairNode;
 
-class TokenTree implements \ArrayAccess{
+class TokenTree implements \ArrayAccess,\Iterator{
 	private $data = [];
 	private $tree;
 	private $once;
+	private $position = 0;
 	function __construct($filename){
 		$this->tree = Parser::parseFile($filename);
 		$this->once = false;
 		$this->tree->walk([$this,'onceArray']);
+		$this->position = 0;
 	}
 	function onceArray(Node $node){
 		if($this->once)
@@ -252,6 +254,25 @@ class TokenTree implements \ArrayAccess{
 				$v = &$v[$k];
 			}
 		}
+	}
+	
+	function rewind() {
+		$this->position = 0;
+	}
+	function current(){
+		$key = $this->key();
+		return $this->data[$key];
+	}
+	function key(){
+		$keys = array_keys($this->data);
+		return $keys[$this->position];
+	}
+	function next() {
+		++$this->position;
+	}
+	function valid() {
+		$key = $this->key();
+		return isset($this->data[$key]);
 	}
 	
 	static function var_codify($var, $indent=0){
