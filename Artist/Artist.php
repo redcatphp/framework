@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
+use RuntimeException;
 abstract class Artist extends Command{
 	protected $description;
 	
@@ -66,6 +67,10 @@ abstract class Artist extends Command{
 		if(!($output instanceof OutputInterface)){
 			$output = $this->output;
 		}
-		return $this->getApplication()->find($cmd)->run($input, $output);
+		$run = $this->getApplication()->find($cmd);
+		if(!$run){
+			throw new RuntimeException($cmd.': command not found');
+		}
+		return $run->run($input, $output);
 	}
 }
