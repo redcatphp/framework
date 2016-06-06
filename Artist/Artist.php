@@ -6,6 +6,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Question\Question;
 use RuntimeException;
 abstract class Artist extends Command{
 	protected $description;
@@ -72,5 +73,10 @@ abstract class Artist extends Command{
 			throw new RuntimeException($cmd.': command not found');
 		}
 		return $run->run($input, $output);
+	}
+	protected function askQuestion($sentence,$default=null){
+		$helper = $this->getHelper('question');
+		$question = new Question($sentence, $default);
+		return $helper->ask($this->input, $this->output, $question);
 	}
 }
