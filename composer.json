@@ -24,7 +24,6 @@
 		"redcatphp/route": "dev-master",
 		"redcatphp/stylize": "dev-master",
 		"redcatphp/templix": "dev-master",
-		"redcatphp/composer-script": "dev-master",
 		"grom358/pharborist": "dev-master",
 		"symfony/console": "^3.0",
 		"zendframework/zend-diactoros": ">=1.3",
