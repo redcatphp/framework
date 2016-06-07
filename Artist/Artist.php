@@ -81,11 +81,12 @@ abstract class Artist extends Command{
 	protected function askQuestion($sentence,$default=null){
 		if($this->ioHelper){
 			$helper = $this->ioHelper;
+			return $helper->ask($sentence, $default);
 		}
 		else{
 			$helper = $this->getHelper('question');
 			$question = new Question($sentence, $default);
+			return $helper->ask($this->input, $this->output, $question);
 		}
-		return $helper->ask($this->input, $this->output, $question);
 	}
 }
