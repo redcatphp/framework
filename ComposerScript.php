@@ -2,8 +2,8 @@
 namespace RedCat\Framework;
 class ComposerScript{
 	static function __callStatic($func,$args){
-		$c = 'MyApp\\ComposerScript';
-		if(!class_exists($c)&&is_file('plugins/composer/ComposerScript.php')){
+		$c = 'MyApp\\Composer\EventsHandler';
+		if(!class_exists($c)&&is_file('plugins/composer/EventsHandler.php')){
 			include 'plugins/composer/ComposerScript.php';
 		}
 		if(class_exists($c)&&is_callable([$c,$func])){
