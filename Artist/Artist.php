@@ -21,9 +21,13 @@ abstract class Artist extends Command{
 	protected $cwd;
 	protected $input;
 	protected $output;
+	protected $ioHelper;
 	protected function execute(InputInterface $input, OutputInterface $output){
 		$this->input = $input;
 		$this->output = $output;
+		if(isset($GLOBALS['ioDialogRedCat'])){
+			$this->ioHelper = $GLOBALS['ioDialogRedCat'];
+		}
 		$this->exec();
 	}
 	abstract protected function exec();
@@ -75,8 +79,13 @@ abstract class Artist extends Command{
 		return $run->run($input, $output);
 	}
 	protected function askQuestion($sentence,$default=null){
-		$helper = $this->getHelper('question');
-		$question = new Question($sentence, $default);
+		if($this->ioHelper){
+			$helper = $this->ioHelper;
+		}
+		else{
+			$helper = $this->getHelper('question');
+			$question = new Question($sentence, $default);
+		}
 		return $helper->ask($this->input, $this->output, $question);
 	}
 }
