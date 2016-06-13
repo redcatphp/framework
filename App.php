@@ -18,8 +18,8 @@ class App extends Di{
 			$config = [REDCAT.'.config.php'];
 			if(REDCAT_CWD!=REDCAT)
 				$config[] = REDCAT_CWD.'.config.php';
-			$config[] = REDCAT_CWD.'.config.app.php';
 			$config[] = REDCAT_CWD.'.config.env.php';
+			$config[] = REDCAT_CWD.'.config.app.php';
 			static::$singleton = static::load($config);
 		}
 	}
