@@ -362,6 +362,9 @@ EOS;
 			if(is_dir($dir=$d.'css')&&!in_array($dir,$from)){
 				$from[] = $dir;
 			}
+			if(is_dir(getcwd().'/'.$d)&&!in_array($d,$from)){
+				$from[] = $d;
+			}
 		}
 		$scss = $this->di->create(StylizeServer::class);
 		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from);
