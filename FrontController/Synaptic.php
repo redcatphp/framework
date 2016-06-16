@@ -333,9 +333,16 @@ EOS;
 	protected function scss($path) {
 		$from = [];
 		foreach($this->dirs as $d){
-			if(is_dir($dir=$d.dirname($path)))
+			$dirname = dirname($path);
+			if(is_dir($dir=$d.$dirname))
 				$from[] = $dir;
-			if(is_dir($dir=$d.'css'))
+			if(strpos($dirname,'/')!==false){
+				$x = explode('/',$dirname);
+				$dir = $d.$x[0];
+				if(is_dir($dir)&&!in_array($dir,$from))
+					$from[] = $dir;
+			}
+			if(is_dir($dir=$d.'css')&&!in_array($dir,$from))
 				$from[] = $dir;
 		}
 		$scss = $this->di->create(StylizeServer::class);
