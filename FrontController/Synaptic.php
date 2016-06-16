@@ -10,6 +10,7 @@ class Synaptic {
 	protected $expires = 2592000;
 	protected $allowedExtensions = ['css','js','jpg','jpeg','png','gif'];
 	protected $dirs = [''];
+	protected $subPackageDirs = ['packages-nav'];
 	protected $di;
 	
 	public $devJs;
@@ -334,16 +335,33 @@ EOS;
 		$from = [];
 		foreach($this->dirs as $d){
 			$dirname = dirname($path);
-			if(is_dir($dir=$d.$dirname))
+			if(is_dir($dir=$d.$dirname)){
 				$from[] = $dir;
+			}
 			if(strpos($dirname,'/')!==false){
+				
+				foreach($this->subPackageDirs as $sp){
+					$sp = rtrim($sp,'/').'/';
+					$l = strlen($sp);
+					if($sp==substr($dirname,0,$l)){
+						$x = explode('/',substr($dirname,$l));
+						$dir = $d.$sp.$x[0];
+						if(is_dir($dir)&&!in_array($dir,$from)){
+							$from[] = $dir;
+						}
+						break;
+					}
+				}
+				
 				$x = explode('/',$dirname);
 				$dir = $d.$x[0];
-				if(is_dir($dir)&&!in_array($dir,$from))
+				if(is_dir($dir)&&!in_array($dir,$from)){
 					$from[] = $dir;
+				}
 			}
-			if(is_dir($dir=$d.'css')&&!in_array($dir,$from))
+			if(is_dir($dir=$d.'css')&&!in_array($dir,$from)){
 				$from[] = $dir;
+			}
 		}
 		$scss = $this->di->create(StylizeServer::class);
 		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from);
