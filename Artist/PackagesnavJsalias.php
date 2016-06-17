@@ -62,7 +62,9 @@ class PackagesnavJsalias extends Artist{
 				$alias[$packageName] = $mainJs;
 			}
 		}
-		file_put_contents($mapFile,$start.json_encode($map,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT).$end);
+		$jsonEncode = json_encode($map,JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+		$jsonEncode = str_replace('    ',"\t",$jsonEncode);
+		file_put_contents($mapFile,$start.$jsonEncode.$end);
 		$this->output->writeln('bower packages alias registered for $js in '.$mapFile);
 	}
 	static function removeTrailingCommas($json){
