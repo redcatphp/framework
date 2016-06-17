@@ -35,11 +35,21 @@ class PackagesnavJsalias extends Artist{
 			$packageName = basename($p);
 			if(in_array($packageName,$this->exclude)) continue;
 			if(isset($alias[$packageName])&&!$force) continue;
-			if(!is_file($jsonFile=$p.'/bower.json')&&!is_file($jsonFile=$p.'/component.json')) continue;
-			$json = json_decode(file_get_contents($jsonFile),true);
-			if(!isset($json['main'])) continue;
+			if(is_file($jsonFile=$p.'/bower.json')||is_file($jsonFile=$p.'/component.json')){
+				$json = json_decode(file_get_contents($jsonFile),true);
+				if(!isset($json['main'])) continue;
+				$mainJson = $json['main'];
+			}
+			elseif(is_file($jsonFile=$p.'/composer.json')){
+				$json = json_decode(file_get_contents($jsonFile),true);
+				if(!isset($json['extra']['component']['scripts'])) continue;
+				$mainJson = $json['extra']['component']['scripts'];
+			}
+			else{
+				continue;
+			}
 			$mainJs = [];
-			foreach((array)$json['main'] as $main){
+			foreach((array)$mainJson as $main){
 				if(strtolower(pathinfo($main,PATHINFO_EXTENSION))=='js'){
 					$mainJs[] = self::cleanDotInUrl($packagesDir.'/'.$packageName.'/'.substr($main,0,-3));
 				}
