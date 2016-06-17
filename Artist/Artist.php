@@ -89,4 +89,20 @@ abstract class Artist extends Command{
 			return $helper->ask($this->input, $this->output, $question);
 		}
 	}
+	
+	static function cleanDotInUrl($url){
+		$x = explode('/',$url);
+		$l = count($x);
+		$r = [];
+		for($i=0; $i<$l; $i++){
+			if($x[$i]=='..'&&!empty($r)){
+				array_pop($r);
+			}
+			elseif($x[$i]!='.'){
+				$r[] = $x[$i];
+			}
+		}
+		$url = implode('/',$r);
+		return $url;
+	}
 }
