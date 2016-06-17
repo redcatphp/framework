@@ -39,7 +39,7 @@ class PackagesnavJsalias extends Artist{
 			$mainJs = [];
 			foreach((array)$bowerJson['main'] as $main){
 				if(strtolower(pathinfo($main,PATHINFO_EXTENSION))=='js'){
-					$mainJs[] = self::cleanDotInUrl($packagesDir.'/'.$packageName.'/'.$main);
+					$mainJs[] = self::cleanDotInUrl($packagesDir.'/'.$packageName.'/'.substr($main,0,-3));
 				}
 			}
 			if(empty($mainJs)) continue;
