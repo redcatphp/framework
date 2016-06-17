@@ -175,7 +175,7 @@ class PackagesnavRemap extends Artist{
 						$url = substr($url,0,$p);
 					}
 					$relativeDir = dirname($relativeFrom);
-					$relative = $this->cleanDotInUrl(ltrim($relativeDir.'/'.$url,'/'));
+					$relative = self::cleanDotInUrl(ltrim($relativeDir.'/'.$url,'/'));
 					if(isset($movemap[$relative])){
 						$url = $movemap[$relative][0];
 					}
@@ -218,24 +218,9 @@ class PackagesnavRemap extends Artist{
 				$url = call_user_func($remapUrl,$url);
 			}
 
-			$url = $this->cleanDotInUrl($url);
+			$url = self::cleanDotInUrl($url);
 			
 			return 'url("'.$url.'")';
 		},$content);
-	}
-	protected function cleanDotInUrl($url){
-		$x = explode('/',$url);
-		$l = count($x);
-		$r = [];
-		for($i=0; $i<$l; $i++){
-			if($x[$i]=='..'&&!empty($r)){
-				array_pop($r);
-			}
-			else{
-				$r[] = $x[$i];
-			}
-		}
-		$url = implode('/',$r);
-		return $url;
 	}
 }
