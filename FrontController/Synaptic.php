@@ -359,11 +359,11 @@ EOS;
 					$from[] = $dir;
 				}
 			}
-			if(is_dir($dir=$d.'css')&&!in_array($dir,$from)){
-				$from[] = $dir;
-			}
 			if(is_dir(getcwd().'/'.$d)&&!in_array($d,$from)){
 				$from[] = $d;
+			}
+			if(is_dir($dir=$d.'css')&&!in_array($dir,$from)){
+				$from[] = $dir;
 			}
 		}
 		$scss = $this->di->create(StylizeServer::class);
