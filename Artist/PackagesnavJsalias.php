@@ -6,6 +6,8 @@ class PackagesnavJsalias extends Artist{
 	protected $description = 'Register navigator main javascript from bower vendor directory in $js.alias map';
 	protected $args = [];
 	protected $opts = ['force'];
+	
+	protected $exclude = ['js'];
 	protected function exec(){
 		$force = $this->input->getOption('force');
 		$packagesDir = 'packages-nav';
@@ -31,6 +33,7 @@ class PackagesnavJsalias extends Artist{
 		$alias = &$map['alias'];
 		foreach(glob($source.'/*',GLOB_ONLYDIR) as $p){
 			$packageName = basename($p);
+			if(in_array($packageName,$this->exclude)) continue;
 			if(isset($alias[$packageName])&&!$force) continue;
 			if(!is_file($jsonFile=$p.'/bower.json')&&!is_file($jsonFile=$p.'/component.json')) continue;
 			$json = json_decode(file_get_contents($jsonFile),true);
