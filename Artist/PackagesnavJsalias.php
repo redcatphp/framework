@@ -5,8 +5,9 @@ use RecursiveDirectoryIterator;
 class PackagesnavJsalias extends Artist{
 	protected $description = 'Register navigator main javascript from bower vendor directory in $js.alias map';
 	protected $args = [];
-	protected $opts = [];
+	protected $opts = ['force'];
 	protected function exec(){
+		$force = $this->input->getOption('force');
 		$packagesDir = 'packages-nav';
 		$source = $this->cwd.$packagesDir;
 		$mapFile = $this->cwd.'route-js/map.js';
@@ -30,6 +31,7 @@ class PackagesnavJsalias extends Artist{
 		$alias = &$map['alias'];
 		foreach(glob($source.'/*',GLOB_ONLYDIR) as $p){
 			$packageName = basename($p);
+			if(isset($alias[$packageName])&&!$force) continue;
 			$bowerJsonFile = $p.'/bower.json';
 			if(!is_file($bowerJsonFile)) continue;
 			$bowerJson = json_decode(file_get_contents($bowerJsonFile),true);
