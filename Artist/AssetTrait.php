@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework\Artist;
-class AbstractAsset extends Artist{
+trait AssetTrait{
 	protected $bowerAssetDir = 'vendors/bower-asset';
 	protected $npmAssetDir = 'vendors/npm-asset';
 	function loadAssetInstallerPaths(){

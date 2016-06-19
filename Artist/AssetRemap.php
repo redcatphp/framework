@@ -2,7 +2,8 @@
 namespace RedCat\Framework\Artist;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-class AssetRemap extends AbstractAsset{
+class AssetRemap extends Artist{
+	use AssetTrait;
 	protected $description = "Remap navigator assets from bower vendor directory to structured by source type directories";
 	protected $args = [];
 	protected $opts = ['keep-min'];

@@ -2,7 +2,8 @@
 namespace RedCat\Framework\Artist;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-class AssetJsalias extends AbstractAsset{
+class AssetJsalias extends Artist{
+	use AssetTrait;
 	protected $description = 'Register navigator main javascript from bower vendor directory in $js.alias map';
 	protected $args = [];
 	protected $opts = ['force'];
