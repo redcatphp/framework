@@ -5,7 +5,7 @@ use RedCat\Ding\Di;
 use RedCat\Stylize\Server as StylizeServer;
 use RedCat\Framework\Artist\AssetTrait;
 use JShrink\Minifier as JSMin;
-class Synaptic {
+class AssetLoader {
 	use AssetTrait;
 	protected $pathFS;
 	protected $expires = 2592000;

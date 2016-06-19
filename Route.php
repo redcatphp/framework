@@ -7,7 +7,7 @@ use RedCat\DataMap\Bases;
 use RedCat\Route\Request;
 use RedCat\Route\Router;
 use RedCat\Route\Url;
-use RedCat\Framework\FrontController\Synaptic;
+use RedCat\Framework\FrontController\AssetLoader;
 use RedCat\Framework\FrontController\FrontController;
 use RedCat\Framework\FrontController\RenderInterface;
 use RedCat\Framework\Templix\Templix;
@@ -38,7 +38,7 @@ class Route extends FrontController{
 	}
 	protected function _loadRoutes(){
 		
-		$this->extension('css|js|png|jpg|jpeg|gif','new:'.Synaptic::class);
+		$this->extension('css|js|png|jpg|jpeg|gif','new:'.AssetLoader::class);
 		
 		$this->extension('jsonp',[$this,'outputJsonp']);
 		$this->extension('json',[$this,'outputJson']);
