@@ -3,14 +3,15 @@ namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Ding\Di;
 use RedCat\Stylize\Server as StylizeServer;
+use RedCat\Framework\Artist\AssetTrait;
 use JShrink\Minifier as JSMin;
 class Synaptic {
-	
+	use AssetTrait;
 	protected $pathFS;
 	protected $expires = 2592000;
 	protected $allowedExtensions = ['css','js','jpg','jpeg','png','gif'];
 	protected $dirs = [''];
-	protected $subPackageDirs = ['packages-nav'];
+	protected $subPackageDirs = [];
 	protected $di;
 	
 	public $devJs;
@@ -27,6 +28,9 @@ class Synaptic {
 		$this->devCss = $devCss;
 		$this->di = $di;
 		$this->useModIncludeByHost = $useModIncludeByHost;
+		$this->loadAssetInstallerPaths();
+		$this->subPackageDirs[] = $this->bowerAssetDir;
+		$this->subPackageDirs[] = $this->npmAssetDir;
 	}
 	function __invoke($params){
 		list($filename,$extension) = $params;
