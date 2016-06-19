@@ -6,8 +6,6 @@ class InstallEnd extends Artist{
 	protected $args = [];
 	protected $opts = [];
 	protected function exec(){
-		if(!is_file($this->cwd.'packages/.htaccess')&&file_put_contents($this->cwd.'packages/.htaccess','Deny from All'))
-			$this->output->writeln('packages dir protected');
 		$dirs = ['.tmp','.data','content'];
 		array_walk($dirs,function($dir){
 			if(!is_dir($this->cwd.$dir)){
