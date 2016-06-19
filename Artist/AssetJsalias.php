@@ -2,16 +2,16 @@
 namespace RedCat\Framework\Artist;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-class PackagesnavJsalias extends Artist{
+class AssetJsalias extends AbstractAsset{
 	protected $description = 'Register navigator main javascript from bower vendor directory in $js.alias map';
 	protected $args = [];
 	protected $opts = ['force'];
 	
 	protected $exclude = ['js'];
 	protected function exec(){
+		$this->loadAssetInstallerPaths();
 		$force = $this->input->getOption('force');
-		$packagesDir = 'packages-nav';
-		$source = $this->cwd.$packagesDir;
+		$source = $this->cwd.$this->bowerAssetDir;
 		$mapFile = $this->cwd.'route-js/map.js';
 		$start = '$js.map(';
 		$end = ');';
@@ -51,7 +51,7 @@ class PackagesnavJsalias extends Artist{
 			$mainJs = [];
 			foreach((array)$mainJson as $main){
 				if(strtolower(pathinfo($main,PATHINFO_EXTENSION))=='js'){
-					$mainJs[] = self::cleanDotInUrl($packagesDir.'/'.$packageName.'/'.substr($main,0,-3));
+					$mainJs[] = self::cleanDotInUrl($this->bowerAssetDir.'/'.$packageName.'/'.substr($main,0,-3));
 				}
 			}
 			if(empty($mainJs)) continue;

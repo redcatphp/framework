@@ -2,13 +2,15 @@
 namespace RedCat\Framework\Artist;
 use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
-class PackagesnavRemap extends Artist{
+class AssetRemap extends AbstractAsset{
 	protected $description = "Remap navigator assets from bower vendor directory to structured by source type directories";
 	protected $args = [];
 	protected $opts = ['keep-min'];
 	protected function exec(){
-		$source = $this->cwd.'packages-nav';
-		$configPath = $this->cwd.'.packages-nav';
+		$this->loadAssetInstallerPaths();
+		
+		$source = $this->cwd.$this->bowerAssetDir;
+		$configPath = $this->cwd.'.bower-asset';
 		
 		if(is_file($configPath)){
 			$map = json_decode(file_get_contents($configPath),true);
@@ -36,7 +38,7 @@ class PackagesnavRemap extends Artist{
 	}
 	protected function mergeSubPackages($source,$map){
 		foreach(glob($source.'/*',GLOB_ONLYDIR) as $path){
-			if(is_file($f=$path.'/.packages-nav')){
+			if(is_file($f=$path.'/.bower-asset')){
 				$m = json_decode(file_get_contents($f),true);
 				if(!$m){
 					$this->output->writeln("$f definition file syntax error");
