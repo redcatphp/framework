@@ -5,7 +5,7 @@ use RecursiveDirectoryIterator;
 class AssetJsalias extends Artist{
 	use AssetTrait;
 	protected $description = 'Register navigator main javascript from bower vendor directory in $js.alias map';
-	protected $args = [];
+	protected $args = ['jsmapfile'=>'The $js map file definition to store alias key'];
 	protected $opts = ['force'];
 	
 	protected $exclude = ['js'];
@@ -13,7 +13,7 @@ class AssetJsalias extends Artist{
 		$this->loadAssetInstallerPaths();
 		$force = $this->input->getOption('force');
 		$source = $this->cwd.$this->bowerAssetDir;
-		$mapFile = $this->cwd.'route-js/map.js';
+		$mapFile = $this->input->getArgument('jsmapfile')?:$this->cwd.'js/js.map.js';
 		$start = '$js.map(';
 		$end = ');';
 		if(is_file($mapFile)){
