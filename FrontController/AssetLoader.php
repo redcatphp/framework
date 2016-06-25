@@ -3,7 +3,7 @@ namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
 use RedCat\Ding\Di;
 use RedCat\Stylize\Server as StylizeServer;
-use RedCat\Framework\Artist\AssetTrait;
+use RedCat\Artist\Plugin\AssetTrait;
 use JShrink\Minifier as JSMin;
 class AssetLoader {
 	use AssetTrait;
