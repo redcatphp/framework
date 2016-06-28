@@ -2,9 +2,8 @@
 namespace RedCat\Framework;
 use RedCat\Ding\Di;
 use RedCat\Debug\ErrorHandler;
-use RedCat\Autoload\Autoload;
 class App extends Di{
-	protected $autoload;
+	protected $loader;
 	protected static $singleton;
 	static function get(){
 		if(!isset(static::$singleton))
@@ -15,18 +14,19 @@ class App extends Di{
 		if(func_num_args())
 			static::$singleton = func_get_arg(0);
 		else{
-			$config = [REDCAT.'.config.php'];
+			$config = [REDCAT.'config/default.php'];
 			if(REDCAT_CWD!=REDCAT)
-				$config[] = REDCAT_CWD.'.config.php';
-			$config[] = REDCAT_CWD.'.config.env.php';
-			$config[] = REDCAT_CWD.'.config.app.php';
+				$config[] = REDCAT_CWD.'config/default.php';
+			$config[] = REDCAT_CWD.'config/env.php';
+			$config[] = REDCAT_CWD.'config/app.php';
 			static::$singleton = static::load($config);
 		}
 	}
-	static function bootstrap($configMap=null){
-		if($configMap)
-			self::set(self::load($configMap));
+	static function bootstrap($loader=null){
 		$app = static::get();
+		if($loader){
+			$app['loader'] = $loader;
+		}
 		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']['php']){
 			$app->create(ErrorHandler::class,[$app['dev']['php']])->handle();
 		}
@@ -40,22 +40,12 @@ class App extends Di{
 					header('Location: /500',true,302);
 			});
 		}
-		if(isset($app['autoload'])){
+		if($app['loader']&&isset($app['autoload'])){
 			foreach((array)$app['autoload'] as $autoload){
-				call_user_func_array([$app,'autoload'],(array)$autoload);
+				list($dir,$ns) = $autoload;
+				$app['loader']->addPsr4($ns,$dir);
 			}
 		}
 		return $app;
-	}
-	function autoload($base_dir=null,$prefix=''){
-		if(!isset($this->autoload)){
-			$this->autoload = $this->create(Autoload::class);
-			$this->autoload->splRegister();
-		}
-		if(is_array($base_dir))
-			$this->autoload->addNamespaces($base_dir);
-		elseif(func_num_args()>=1)
-			$this->autoload->addNamespace($prefix,$base_dir);			
-		return $this->autoload;
 	}
 }

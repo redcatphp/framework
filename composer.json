@@ -16,7 +16,6 @@
 	"require": {
 		"php": ">=5.6.0",
 		"redcatphp/artist": "dev-master",
-		"redcatphp/autoload": "dev-master",
 		"redcatphp/ding": "dev-master",
 		"redcatphp/datamap": "dev-master",
 		"redcatphp/debug": "dev-master",
