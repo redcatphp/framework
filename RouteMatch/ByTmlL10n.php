@@ -1,11 +1,12 @@
 <?php
 namespace RedCat\Framework\RouteMatch;
 class ByTmlL10n extends ByTml {
-	private $langDefault;
-	private $lang;
+	protected $langDefault;
+	protected $lang;
 	function __construct($dir=null,$dirFS=null,$langDefault='en'){
 		parent::__construct($dir,$dirFS);
 		$this->langDefault = $langDefault;
+		$this->lang = $this->langDefault;
 	}
 	function __invoke($path,$domain=null){
 		if($lang=$this->extractLang($domain)){
@@ -25,6 +26,7 @@ class ByTmlL10n extends ByTml {
 		}
 		$path = parent::__invoke($path);
 		if($path){
+			$this->lang = $lang;
 			return [$lang,$langMap,$path];
 		}
 	}
