@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework\Templix\Markup;
-use RedCat\Framework\Templix\Parsedown;
+use Parsedown;
 class Markdown extends \RedCat\Templix\Markup {
 	protected $hiddenWrap = true;
 	protected $noParseContent = true;
