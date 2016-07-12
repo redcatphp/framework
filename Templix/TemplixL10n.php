@@ -119,7 +119,7 @@ class TemplixL10n extends Templix{
 		}
 		$TML('html')->attr('lang',$this->Translator->getLangCode());
 		$TML('*[ni18n] *, script, style, code')->data('i18n',false);
-		$TML('t, TEXT:hasnt(PHP)')->each(function($el)use($cache,&$aggrK,&$aggrV,&$TML){
+		$TML('t, TEXT:hasnt(PHP)')->each(function($el)use($cache,&$aggrK,&$aggrV){
 			if($el->data('i18n')===false)
 				return;
 			

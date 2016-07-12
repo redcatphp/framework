@@ -25,7 +25,7 @@ class Toolbox{
 	}
 	function setCDN($Tml,$url){
 		$url = rtrim($url,'/').'/';
-		$Tml('script[src],img[src],link[href]')->each(function($el)use($url,$Tml){
+		$Tml('script[src],img[src],link[href]')->each(function($el)use($url){
 			if($el->attr('no-cdn')||($el->nodeName=='link'&&$el->rel&&$el->rel!='stylesheet'))
 				return;
 			$k = $el->src?'src':'href';
