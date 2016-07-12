@@ -41,7 +41,7 @@ class AssetLoader {
 	
 	function setDirs($d){
 		$this->dirs = (array)$d;
-		foreach($this->dirs as $d){
+		foreach($this->dirs as $k=>$d){
 			if($d)
 				$this->dirs[$k] = rtrim($d,'/').'/';
 		}
