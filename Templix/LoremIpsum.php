@@ -329,7 +329,6 @@ class LoremIpsum {
 		$total = count($sentences);
 		
 		$paragraphs = [];
-		$pCount = 0;
 		$currCount = 0;
 		$curr = [];
 		
@@ -454,7 +453,6 @@ class LoremIpsum {
 		
 		// two independent variables with normal distribution N(0,1)
 		$u=sqrt(-2*log($x))*cos(2*pi()*$y);
-		$v=sqrt(-2*log($x))*sin(2*pi()*$y);
 		
 		// i will return only one, couse only one needed
 		return $u;
