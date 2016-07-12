@@ -4,7 +4,7 @@ class Uploader{
 	public $extensionRewrite = [
 		'jpeg'=>'jpg',
 	];
-	function image($conf){
+	function image($conf,$multi=false){
 		$conf = $conf+[
 			'dir'=>'',
 			'key'=>'image',
