@@ -11,7 +11,7 @@ class Loremipsum extends \RedCat\Templix\Markup {
 			$this->wordsPerParagraph="1";
 		}
 		if(($c=key($this->attributes))==current($this->attributes)&&is_integer(filter_var($c,FILTER_VALIDATE_INT)))
-		$this->count = $c;
+			$this->count = $c;
 		$count = $this->count?$this->count:100;
 		$wordsPerParagraph = $this->wordsPerParagraph?$this->wordsPerParagraph:100;
 		$format = $this->format;
