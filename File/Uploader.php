@@ -97,6 +97,9 @@ class Uploader{
 	function files($dir,$k,$mime=null,$callback=null,$precallback=null,$maxFileSize=null){
 		if(isset($_FILES[$k])){
 			$files =& $_FILES[$k];
+			if(!is_array($files['name'])){
+				return $this->file($dir,$k,$mime,$callback,$precallback,$maxFileSize);
+			}
 			for($i=0;count($files['name'])>$i;$i++){
 				$file = [];
 				foreach(array_keys($files) as $prop)
