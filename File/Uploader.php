@@ -86,28 +86,33 @@ class Uploader{
 			throw new UploadException('move_uploaded_file');
 		if($callback)
 			$callback($dir.$name);
+		return $name;
 	}
 	function file($dir,$k,$mime=null,$callback=null,$precallback=null,$maxFileSize=null){
 		if(isset($_FILES[$k])){
 			if($_FILES[$k]['name'])
-				$this->uploadFile($_FILES[$k],$dir,$mime,$callback,$precallback,true,$maxFileSize);
-			return true;
+				return $this->uploadFile($_FILES[$k],$dir,$mime,$callback,$precallback,true,$maxFileSize);
 		}
 	}
 	function files($dir,$k,$mime=null,$callback=null,$precallback=null,$maxFileSize=null){
+		$returnFiles = [];
 		if(isset($_FILES[$k])){
 			$files =& $_FILES[$k];
 			if(!is_array($files['name'])){
-				return $this->file($dir,$k,$mime,$callback,$precallback,$maxFileSize);
+				$returnFiles[] = $this->file($dir,$k,$mime,$callback,$precallback,$maxFileSize);
 			}
-			for($i=0;count($files['name'])>$i;$i++){
-				$file = [];
-				foreach(array_keys($files) as $prop)
-					$file[$prop] =& $files[$prop][$i];
-				if($file['name'])
-					$this->uploadFile($file,$dir,$mime,$callback,$precallback,false,true,$maxFileSize);
+			else{
+				for($i=0;count($files['name'])>$i;$i++){
+					$file = [];
+					foreach(array_keys($files) as $prop){
+						$file[$prop] =& $files[$prop][$i];
+					}
+					if($file['name']){
+						$returnFiles[] = $this->uploadFile($file,$dir,$mime,$callback,$precallback,false,true,$maxFileSize);
+					}
+				}
 			}
-			return true;
+			return $returnFiles;
 		}
 	}
 	
