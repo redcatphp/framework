@@ -70,11 +70,11 @@ class Route extends FrontController{
 			return [$ctrl,$uri];
 	}
 	
-	function _controllerApi($controllerClass, $args=[], Di $di){
-		$controller = $di($controllerClass,$args);
+	function _controllerApi($controllerClass, $params=[], Di $di){
+		$controller = $di($controllerClass);
 		$this->controller = $controller;
 		$method = isset($this->request['method'])?$this->request['method']:'__invoke';
-		$params = isset($this->request['params'])?$this->request['params']:[];
+		$params += isset($this->request['params'])?$this->request['params']->getArray():[];
 		if($method!='__invoke'&&substr($method,0,1)=='_'){
 			throw new \RuntimeException("Underscore prefixed method \"$method\" is not allowed to public api access");
 		}
@@ -82,7 +82,7 @@ class Route extends FrontController{
 			if(!(new \ReflectionMethod($controller, $method))->isPublic()) {
 				throw new \RuntimeException("The called method is not public");
 			}
-			return $di->method($controller,$method,(array)$params);
+			return $di->method($controller,$method,$params);
 		}
 	}
 	function _outputTml($params){
