@@ -92,6 +92,9 @@ class Route extends FrontController{
 		
 		$data = $this->controllerApi($controllerClass);
 		
+		if($data===false)
+			return;
+		
 		if(isset($data['_view'])){
 			$uri = $data['_view'];
 		}
