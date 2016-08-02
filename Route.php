@@ -70,8 +70,8 @@ class Route extends FrontController{
 			return [$ctrl,$uri];
 	}
 	
-	function _controllerApi($controllerClass, Di $di){
-		$controller = $di($controllerClass);
+	function _controllerApi($controllerClass, $args=[], Di $di){
+		$controller = $di($controllerClass,$args);
 		$this->controller = $controller;
 		$method = isset($this->request['method'])?$this->request['method']:'__invoke';
 		$params = isset($this->request['params'])?$this->request['params']:[];
