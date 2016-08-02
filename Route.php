@@ -85,8 +85,7 @@ class Route extends FrontController{
 			return $di->method($controller,$method,(array)$params);
 		}
 	}
-	function _outputTml($params, Di $di){
-		$template = $di($this->templixSubstitution);
+	function _outputTml($params){
 		
 		list($controllerClass,$uri) = $params;
 		
@@ -102,7 +101,7 @@ class Route extends FrontController{
 		foreach(get_object_vars($this->controller) as $k=>$v){
 			$template[$k] = $v;
 		}
-		$template($uri, $data);
+		$this->view($uri, $data);
 	}
 	function outputJson($params){
 		if($params=$this->findController(array_shift($params))){
