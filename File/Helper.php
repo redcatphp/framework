@@ -4,10 +4,15 @@ class Helper{
 	static function getMaxUploadSize($decimals = 2){
 		return self::humanFilesize(self::file_upload_max_size(), $decimals);
 	}
-	static function humanFilesize($bytes, $decimals = 2) {
+	static function humanFilesize($bytes, $decimals = 2, $trimZero=true) {
 		$size = array('B','kB','MB','GB','TB','PB','EB','ZB','YB');
 		$factor = floor((strlen($bytes) - 1) / 3);
-		return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$size[$factor];
+		$r = sprintf("%.{$decimals}f", $bytes / pow(1024, $factor));
+		if($trimZero){
+			$r = rtrim(rtrim($r,'0'),'.');
+		}
+		$r .= @$size[$factor];
+		return $r;
 	}
 	static function file_upload_max_size(){
 		static $max_size = -1;
