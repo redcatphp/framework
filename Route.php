@@ -11,6 +11,7 @@ use RedCat\Framework\FrontController\AssetLoader;
 use RedCat\Framework\FrontController\FrontController;
 use RedCat\Framework\FrontController\RenderInterface;
 use RedCat\Framework\Templix\Templix;
+use RedCat\Framework\Templix\TemplixL10n;
 
 class Route extends FrontController{
 	use CallTrait;
@@ -25,6 +26,9 @@ class Route extends FrontController{
 		$this->l10n = $l10n;
 		$this->useShared = $useShared;
 		parent::__construct($router,$request,$di);
+		if($this->l10n){
+			$this->templixSubstitution = TemplixL10n::class;
+		}
 	}
 	function byTml(){
 		$method = __FUNCTION__;
@@ -140,8 +144,8 @@ class Route extends FrontController{
 		return str_replace($routeKeys,$routeValues,$href);
 	}
 	
-	function _view($path, $data=[], Di $di){
-		$templix = $di($this->templixSubstitution);
+	function view($path, $data=[]){
+		$templix = $this->di->create($this->templixSubstitution);
 		return $templix($path,$data);
 	}
 	function redirectBack(Url $url){

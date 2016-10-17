@@ -22,6 +22,7 @@ class TemplixL10n extends Templix{
 		$this->cdnSubdomain = $cdnSubdomain;
 	}
 	function __invoke($file,$vars=[]){
+
 		list($lang,$langMap,$file) = (array)$file;
 		
 		$this['LANG'] = $lang;
@@ -60,6 +61,7 @@ class TemplixL10n extends Templix{
 			$TML('*')->removeAttr('ni18n');
 			$TML('*')->removeAttr('i18n');
 		},true);
+		
 		
 		return $this->query($file,$vars);
 	}
