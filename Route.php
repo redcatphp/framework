@@ -1,9 +1,9 @@
 <?php
 namespace RedCat\Framework;
 
-use RedCat\Ding\Di;
-use RedCat\Ding\CallTrait;
-use RedCat\DataMap\Bases;
+use RedCat\Strategy\Di;
+use RedCat\Strategy\CallTrait;
+use FoxORM\Bases;
 use RedCat\Route\Request;
 use RedCat\Route\Router;
 use RedCat\Route\Url;

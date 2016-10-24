@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework\Templix;
-use RedCat\Ding\Di;
+use RedCat\Strategy\Di;
 class Templix extends \RedCat\Templix\Templix{
 	private $di;
 	

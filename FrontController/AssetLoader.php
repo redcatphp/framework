@@ -1,7 +1,7 @@
 <?php
 namespace RedCat\Framework\FrontController;
 use RedCat\Route\Router;
-use RedCat\Ding\Di;
+use RedCat\Strategy\Di;
 use RedCat\Stylize\Server as StylizeServer;
 use RedCat\Artist\Plugin\AssetTrait;
 use JShrink\Minifier as JSMin;

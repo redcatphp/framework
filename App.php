@@ -1,6 +1,6 @@
 <?php
 namespace RedCat\Framework;
-use RedCat\Ding\Di;
+use RedCat\Strategy\Di;
 use RedCat\Debug\ErrorHandler;
 class App extends Di{
 	protected $loader;
