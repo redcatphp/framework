@@ -15,7 +15,6 @@
 	],
 	"require": {
 		"php": ">=5.6.0",
-		"redcatphp/artist": "dev-master",
 		"redcatphp/strategy": "dev-master",
 		"redcatphp/debug": "dev-master",
 		"redcatphp/identify": "dev-master",
