@@ -29,7 +29,7 @@ class App extends StrategyApp{
 			$app['loader'] = $loader;
 		}
 		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']['php']){
-			$app->getMe(ErrorHandler::class,[$app['dev']['php']])->handle();
+			$app->get(ErrorHandler::class,[$app['dev']['php']])->handle();
 		}
 		else{
 			error_reporting(0);
