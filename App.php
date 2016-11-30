@@ -6,7 +6,7 @@ use RedCat\Debug\ErrorHandler;
 class App extends StrategyApp{
 	protected $loader;
 	protected static $singleton;
-	static function get(){
+	static function getMe(){
 		if(!isset(static::$singleton))
 			self::set();
 		return static::$singleton;
@@ -24,12 +24,12 @@ class App extends StrategyApp{
 		}
 	}
 	static function bootstrap($loader=null){
-		$app = static::get();
+		$app = static::getMe();
 		if($loader){
 			$app['loader'] = $loader;
 		}
 		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']['php']){
-			$app->get(ErrorHandler::class,[$app['dev']['php']])->handle();
+			$app->getMe(ErrorHandler::class,[$app['dev']['php']])->handle();
 		}
 		else{
 			error_reporting(0);
