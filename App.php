@@ -1,8 +1,9 @@
 <?php
 namespace RedCat\Framework;
 use RedCat\Strategy\Di;
+use RedCat\Strategy\App as StrategyApp;
 use RedCat\Debug\ErrorHandler;
-class App extends Di{
+class App extends StrategyApp{
 	protected $loader;
 	protected static $singleton;
 	static function get(){
@@ -28,7 +29,7 @@ class App extends Di{
 			$app['loader'] = $loader;
 		}
 		if(isset($app['dev'])&&isset($app['dev']['php'])&&$app['dev']['php']){
-			$app->create(ErrorHandler::class,[$app['dev']['php']])->handle();
+			$app->get(ErrorHandler::class,[$app['dev']['php']])->handle();
 		}
 		else{
 			error_reporting(0);

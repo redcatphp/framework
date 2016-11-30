@@ -14,7 +14,7 @@ abstract class FrontController extends \RedCat\Route\FrontController implements 
 				$params = array_shift($args);
 				if(!is_array($params))
 					$params = [$params];
-				$matcher = $this->di->create($c,$params);
+				$matcher = $this->di->get($c,$params);
 				break;
 			}
 		}

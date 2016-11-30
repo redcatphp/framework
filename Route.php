@@ -145,7 +145,7 @@ class Route extends FrontController{
 	}
 	
 	function view($path, $data=[]){
-		$templix = $this->di->create($this->templixSubstitution);
+		$templix = $this->di->get($this->templixSubstitution);
 		return $templix($path,$data);
 	}
 	function redirectBack(Url $url){

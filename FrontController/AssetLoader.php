@@ -371,7 +371,7 @@ EOS;
 				$from[] = $dir;
 			}
 		}
-		$scss = $this->di->create(StylizeServer::class);
+		$scss = $this->di->get(StylizeServer::class);
 		$scss->serveFrom(pathinfo($path,PATHINFO_FILENAME).'.scss',$from);
 	}
 	function fileCache($output){

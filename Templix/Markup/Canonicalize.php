@@ -8,10 +8,10 @@ class Canonicalize extends \RedCat\Templix\Markup{
 		$this->remapAttr('domains');
 		$this->attr('domains',eval('return '.$this->domains.';'));
 		if($this->attr('no-cache')){
-			$href = "<?php echo \RedCat\Strategy\Di::getInstance()->create('RedCat\Route\Url')->getCanonical(".var_export($this->attr('domains'),true).','.($this->attr('http-substitution')?'true':'false').','.($this->attr('static')?'true':'false').');?>';
+			$href = "<?php echo \RedCat\Strategy\Di::getInstance()->get('RedCat\Route\Url')->getCanonical(".var_export($this->attr('domains'),true).','.($this->attr('http-substitution')?'true':'false').','.($this->attr('static')?'true':'false').');?>';
 		}
 		else{
-			$url = Di::getInstance()->create('RedCat\Route\Url');
+			$url = Di::getInstance()->get('RedCat\Route\Url');
 			$canonical = $url->getCanonical($this->attr('domains'),!!$this->attr('http-substitution'),$this->attr('static'));
 			$canonical2 = $url->getCanonical($this->attr('domains'),'%s',$this->attr('static'));
 			if($this->attr('http-substitution'))

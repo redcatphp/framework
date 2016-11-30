@@ -23,7 +23,7 @@ class Templix extends \RedCat\Templix\Templix{
 		$this->httpEtag = $httpEtag;
 		$this->httpExpireTime = $httpExpireTime;
 		
-		$this->toolbox = $this->di->create(Toolbox::class);
+		$this->toolbox = $this->di->get(Toolbox::class);
 		
 		$this->onCompile(function($tml){
 			if($tml->templix->getParent())
