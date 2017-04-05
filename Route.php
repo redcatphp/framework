@@ -18,7 +18,7 @@ class Route extends FrontController{
 	
 	protected $uri;	
 	protected $controller;
-	protected $controllerNamespace = 'MyApp\Controller';
+	protected $controllerNamespace = 'App\Controller';
 	protected $templixSubstitution = Templix::class;
 	protected $l10n;
 	protected $useShared;
